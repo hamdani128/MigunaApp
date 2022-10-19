@@ -1,0 +1,153 @@
+<?= $this->Extend('layout/index'); ?>
+<?= $this->Section('title'); ?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <!-- <div class="float-right align-item-center mt-2">
+                <button class="btn btn-info px-4 align-self-center report-btn">Creat Report</button>
+            </div> -->
+            <h4 class="page-title mb-2"><i class="mdi mdi-monitor mr-2"></i>Informasi Pasien</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Master</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Pasien</a></li>
+                    <li class="breadcrumb-item active">Info Pasien</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<?= $this->EndSection(); ?>
+
+<?= $this->Section('content'); ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#my-modal">
+                                <i class="fa fa-plus"></i>
+                                Tambah
+                            </button>
+                        </div>
+                        <div class="col-lg-5">
+
+                        </div>
+                        <div class="col-lg-5 text-right">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="date" name="" id="" class="form-control">
+                                    <button class="btn btn-info btn-md">
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table id="table-pasien-admin" class="table dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#No</th>
+                                            <th>#Action</th>
+                                            <th>ID Pasien</th>
+                                            <th>NIK</th>
+                                            <th>Nama</th>
+                                            <th>Usia</th>
+                                            <th>Alamat</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Pekerjaan</th>
+                                            <th>Tanggal Registrasi</th>
+                                            <th>Created At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Content -->
+
+
+<!-- Modal Add -->
+<div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="my-modal-title">Tambah Data Pasien</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="" class="form-label">NIK Pasien</label>
+                            <input type="text" class="form-control" name="nik" id="nik"
+                                placeholder="Masukkan NIK Pasien">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Lengkap</label>
+                            <input type="text" name="nama" id="nama" placeholder="Nama Lengkap Anda"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Usia</label>
+                            <input type="text" name="usia" id="usia" class="form-control" placeholder="Masukkan Usia">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Alamat</label>
+                            <textarea class="form-control" name="alamat" id="alamat" cols="5" rows="5"
+                                placeholder="Masukkan Alamat Lengkap"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Jenis Kelamin</label>
+                            <select name="jk" id="jk" class="form-control">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Pria">Pria</option>
+                                <option value="Wanita">Wanita</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Pekerjaan / Kegiatan</label>
+                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
+                                placeholder="Masukkan Kegiatan / Pekerjaan">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">No.Handphone</label>
+                            <input type="text" name="hp" id="hp" class="form-control"
+                                placeholder="Masukkan No HP ex:(0813-7507-8785)">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Tanggal Registrasi</label>
+                            <input type="date" name="registri" id="registri" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="simpan_data_pasien_by_admin()"><i
+                        class="fa fa-save"></i>
+                    Simpan Data</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Add -->
+<?= $this->EndSection(); ?>

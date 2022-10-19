@@ -35,7 +35,37 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/auth/login', 'AuthController::index');
+$routes->post('/auth/login_check', 'AuthController::login_check');
+$routes->get('/auth/logout', 'AuthController::logout');
+
+$routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
+    $routes->get('/', 'Home::index');
+    $routes->get('/pasien', 'PasienController::index');
+    // admin Pasien
+    $routes->post('/pasien/admin/insert', 'PasienController::admin_insert');
+    $routes->get('/pasien/admin/getdata', 'PasienController::admin_getdata');
+    
+    // Lokasi cabang 
+    $routes->get('/lokasi', 'LokasiController::index');
+    $routes->post('/lokasi/insert', 'LokasiController::insert');
+    $routes->post('/lokasi/edit_show', 'LokasiController::edit_show');
+    $routes->get('/lokasi/getdata', 'LokasiController::getdata');
+    $routes->post('/lokasi/update', 'LokasiController::update');
+    $routes->post('/lokasi/delete', 'LokasiController::delete');
+    // info users
+    $routes->get('/infousers', 'InfouserController::index');
+    $routes->post('/infousers/insert', 'InfouserController::insert');
+    $routes->post('/infousers/show_edit', 'InfouserController::show_edit');
+    $routes->post('/infousers/update', 'InfouserController::update');
+    $routes->post('/infousers/delete', 'InfouserController::delete');
+    $routes->post('/infousers/show_password', 'InfouserController::show_password');
+});
+
+$routes->group('', ['filter' => 'AlreadyLoggedIn'], function ($routes) {
+    $routes->get('/register', 'AuthController::register');
+    $routes->get('/login', 'AuthController::index');
+});
 
 /*
  * --------------------------------------------------------------------
