@@ -64,6 +64,7 @@
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Pekerjaan</th>
+                                            <th>No.Handphone</th>
                                             <th>Tanggal Registrasi</th>
                                             <th>Created At</th>
                                         </tr>
@@ -150,4 +151,126 @@
     </div>
 </div>
 <!-- End Add -->
+
+<!-- Update Modal -->
+<div id="my-modal-edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title text-white" id="my-modal-title">Update Data Pasien</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="" class="form-label">ID Pasien</label>
+                            <input type="text" name="id_pasien_update" id="id_pasien_update" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">NIK Pasien</label>
+                            <input type="text" class="form-control" name="nik_update" id="nik_update"
+                                placeholder="Masukkan NIK Pasien">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Lengkap</label>
+                            <input type="text" name="nama_update" id="nama_update" placeholder="Nama Lengkap Anda"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Usia</label>
+                            <input type="text" name="usia_update" id="usia_update" class="form-control"
+                                placeholder="Masukkan Usia">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Alamat</label>
+                            <textarea class="form-control" name="alamat_update" id="alamat_update" cols="5" rows="5"
+                                placeholder="Masukkan Alamat Lengkap"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Jenis Kelamin</label>
+                            <select name="jk_update" id="jk_update" class="form-control">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Pria">Pria</option>
+                                <option value="Wanita">Wanita</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Pekerjaan / Kegiatan</label>
+                            <input type="text" name="pekerjaan_update" id="pekerjaan_update" class="form-control"
+                                placeholder="Masukkan Kegiatan / Pekerjaan">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">No.Handphone</label>
+                            <input type="text" name="hp_update" id="hp_update" class="form-control"
+                                placeholder="Masukkan No HP ex:(0813-7507-8785)">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Tanggal Registrasi</label>
+                            <input type="date" name="registri_update" id="registri_update" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" onclick="update_data_pasien_by_admin()"><i
+                        class="fa fa-edit"></i>
+                    Update Data</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Update -->
+
+<!-- Antrian Pasien -->
+<div id="my-modal-antrian" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="my-modal-title">Tambah Data Kunjungan</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="" class="form-label">No.Kunjungan</label>
+                            <h5 id='no_kunjungan'><?= $no_antrian; ?></h5>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">ID Pasien</label>
+                            <input type="text" name="id_pasien" id="id_pasien" class="form-control"
+                                placeholder="ID Pasien">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Nama Pasien</label>
+                            <input type="text" class="form-control" name="nama_pasien" id="nama_pasien"
+                                placeholder="Nama Pasien">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Catatan Kunjungan</label>
+                            <textarea class="form-control" name="catatan" id="catatan" cols="5" rows="5"
+                                placeholder="Silahkan isi Tujuan atau Catatan Penting Saat Kunjungan Pasien">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" onclick="masukan_antrian_data_pasien_by_admin()"><i
+                        class="fa fa-edit"></i>
+                    Masukkan Antrian</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->EndSection(); ?>

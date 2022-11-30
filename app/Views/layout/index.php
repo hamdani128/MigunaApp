@@ -21,6 +21,9 @@
     <link href="<?= base_url() ?>/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet"
         type="text/css" />
 
+    <!-- upload -->
+    <link href="<?= base_url() ?>/assets/plugins/dropify/css/dropify.min.css" rel="stylesheet">
+
     <!-- Sweet Alert -->
     <link href="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.css" rel="stylesheet" type="text/css">
@@ -100,7 +103,9 @@
     <script src="https://apexcharts.com/samples/assets/series1000.js"></script>
     <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
     <script src="<?= base_url() ?>/assets/pages/jquery.dashboard.init.js"></script>
-
+    <!-- upload -->
+    <script src="<?= base_url() ?>/assets/plugins/dropify/js/dropify.min.js"></script>
+    <script src="<?= base_url() ?>/assets/pages/jquery.form-upload.init.js"></script>
     <!-- Required datatable js -->
     <script src="<?= base_url() ?>/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
@@ -128,6 +133,11 @@
     <script src="<?= base_url() ?>/assets/js/custom/lokasi.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/infousers.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/pasien.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/kunjungan.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/product.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/treatment.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/transaksi.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/sdm.js"></script>
 </body>
 
 </html>

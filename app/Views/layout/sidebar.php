@@ -17,10 +17,21 @@
                         class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li><a href="/pasien"><span>Pasien</span></a></li>
-                <li><a href="#"><span>Riwayat Kunjungan</span></a></li>
-                <li><a href="#"><span>Info Product</span></a></li>
-                <li><a href="#"><span>Info Treatment</span></a></li>
-                <li><a href="#"><span>Info SDM</span></a></li>
+                <li><a href="/kunjungan"><span>Riwayat Kunjungan</span></a></li>
+                <li><a href="/product"><span>Info Product</span></a></li>
+                <li><a href="/treatment"><span>Info Treatment</span></a></li>
+                <li><a href="/sdm"><span>Info SDM</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript: void(0);"><i class="mdi mdi-account-heart">
+                </i>
+                <span>Diagnosa</span>
+                <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i>
+                </span>
+            </a>
+            <ul class="nav-second-level" aria-expanded="false">
+                <li><a href="/transaksi/kunjungan">Diagnosa</a></li>
             </ul>
         </li>
         <li>
@@ -31,9 +42,8 @@
                 </span>
             </a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="#">Kunjungan</a></li>
-                <li><a href="#">Product</a></li>
                 <li><a href="#">Treatment</a></li>
+                <li><a href="#">Product</a></li>
             </ul>
         </li>
         <?php if($userinfo->level !== 'Admin Cabang'){ ?>
