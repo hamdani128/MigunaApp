@@ -45,7 +45,7 @@
                                             <th>#No</th>
                                             <th>#Action</th>
                                             <th>Nama Karyawan</th>
-                                            <th>Status</th>
+                                            <th>Jabatan</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Created At</th>
                                         </tr>

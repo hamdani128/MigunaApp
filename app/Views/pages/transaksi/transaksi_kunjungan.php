@@ -25,23 +25,68 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
-
+                    <div class="row">
+                        <div class="col-8 align-self-center">
+                            <div class="">
+                                <h4 class="mt-0 header-title">Kunjungan</h4>
+                                <h2 class="mt-0 font-weight-bold text-dark"><?= $total_kunjungan; ?></h2>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-4 align-self-center">
+                            <div class="icon-info text-right">
+                                <i class="dripicons-calendar bg-soft-success"></i>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
-
+                    <div class="row">
+                        <div class="col-8 align-self-center">
+                            <div class="">
+                                <h4 class="mt-0 header-title">Antrian</h4>
+                                <h2 class="mt-0 font-weight-bold text-dark"><?= $total_diagnosa; ?></h2>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-4 align-self-center">
+                            <div class="icon-info text-right">
+                                <i class="dripicons-archive bg-soft-warning"></i>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
-
+                    <div class="row">
+                        <div class="col-8 align-self-center">
+                            <div class="">
+                                <h4 class="mt-0 header-title">Selesai Treatment / Transaksi</h4>
+                                <h2 class="mt-0 font-weight-bold text-dark"><?= $total_transaksi; ?></h2>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-4 align-self-center">
+                            <div class="icon-info text-right">
+                                <i class="dripicons-basket bg-soft-primary"></i>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
                 </div>
             </div>
         </div>
@@ -66,6 +111,7 @@
                                             <th>Status Tahapan</th>
                                             <th>Tanggal</th>
                                             <th>Created At</th>
+                                            <th hidden>status asli</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -118,6 +164,15 @@
                                 <label for="" class="form-label">Resep / Obat</label>
                                 <textarea name="resep" id="resep" rows="5" cols="5" class="form-control"
                                     placeholder="Catatan Diagnosa Berupa Tindakan Penanganan"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label">PIC Pelayanan</label>
+                                <select name="cmb_pic" id="cmb_pic" class="form-control">
+                                    <option value="">Pilih PIC</option>
+                                    <?php foreach($sdm as $row) : ?>
+                                    <option value="<?php echo $row->id?>"><?= $row->nama; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <div class="row">

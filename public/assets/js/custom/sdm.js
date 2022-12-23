@@ -9,7 +9,7 @@ $(document).ready(function () {
             { "data": "no" },
             { "data": "action" },
             { "data": "nama" },
-            { "data": "status" },
+            { "data": "jabatan" },
             { "data": "jk" },
             { "data": "created_at" }
         ],
@@ -92,6 +92,84 @@ function edit_admin_sdm() {
     }
 }
 
-function delete_admin_sdm() {
-    alert("miss you");
+function update_data_sdm() {
+    var id = $("#id_update").val();
+    var nama = $("#nama_update").val();
+    var cmb_status_update = document.getElementById("cmb_status_update");
+    var cmb_status_update_value = cmb_status_update.options[cmb_status_update.selectedIndex].value;
+    var cmb_status_update_text = cmb_status_update.options[cmb_status_update.selectedIndex].text;
+    var cmb_jk_update = $("#cmb_jk_update").val();
+    $.ajax({
+        url: "/sdm/update",
+        data: {
+            id: id,
+            nama: nama,
+            status: cmb_status_update_value,
+            jabatan: cmb_status_update_text,
+            jk: cmb_jk_update,
+        },
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            if (data.status == "success") {
+                Swal.fire({
+                    title: "Good Luck !",
+                    text: " Data Berhasil Di Ubah !",
+                    type: "success",
+                    confirmButtonClass: 'btn btn-success',
+                }).then((result) => {
+                    if (result.value) {
+                        document.location.reload();
+                    }
+                });
+            }
+        }
+    });
 }
+
+function delete_admin_sdm() {
+    var table = document.getElementById("table-sdm");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = function (row) {
+            return function () {
+                var cell = row.getElementsByTagName("td")[2];
+                var nama = cell.innerHTML;
+                Swal.fire({
+                    title: 'Yakin Apakan Anda ingin Menghapus Data ini ?',
+                    text: "Data Pasien " + nama + " Akan dihapus !",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus Data !',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "/sdm/delete",
+                            data: {
+                                nama: nama,
+                            },
+                            type: "POST",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.status == 'success') {
+                                    Swal.fire(
+                                        'Berhasil !',
+                                        'Data Berhasil Dihapus !',
+                                        'success'
+                                    )
+                                    document.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            };
+        };
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+

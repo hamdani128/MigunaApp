@@ -42,11 +42,11 @@
                 </span>
             </a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="#">Treatment</a></li>
-                <li><a href="#">Product</a></li>
+                <li><a href="/transaksi/treatment">Treatment</a></li>
+                <li><a href="/transaksi/product">Product</a></li>
             </ul>
         </li>
-        <?php if($userinfo->level !== 'Admin Cabang'){ ?>
+        <?php if ($userinfo->level !== 'Admin Cabang') { ?>
         <li>
             <a href="javascript: void(0);">
                 <i class="mdi mdi-settings"></i>

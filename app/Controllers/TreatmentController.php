@@ -6,26 +6,26 @@ use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
 
 class TreatmentController extends BaseController
-{   
-    private $db,$UserInfo;
-    public function __construct() 
+{
+    private $db, $UserInfo;
+    public function __construct()
     {
         $this->db = Config::connect();
         $this->UserInfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
     }
-    
+
     public function GetIDTreatment($unit_id)
     {
         date_default_timezone_set('Asia/jakarta'); # add your city to set local time zone
         $now = date('Y-m-d H:i:s');
         $sql = "SELECT MAX(RIGHT(id_treatment,4)) as KD_MAX FROM treatment WHERE unit_id='" . $unit_id . "'";
         $query = $this->db->query($sql);
-        if(!empty($query)){
+        if (!empty($query)) {
             $row = $query->getRow();
             $n = ((int)$row->KD_MAX) + 1;
             $no = sprintf("%04s", $n);
-            $kode = "#TD". $unit_id . "-". $no;
-        }else{
+            $kode = "#TD" . $unit_id . "-" . $no;
+        } else {
             $kode = "#TD" . $unit_id . "-" . "0001";
         }
         return $kode;
@@ -33,8 +33,8 @@ class TreatmentController extends BaseController
 
     public function index()
     {
-        
-        if($this->UserInfo->level == 'Admin Cabang'){
+
+        if ($this->UserInfo->level == 'Admin Cabang') {
             $data = [
                 'title' => 'App Miguna - Info Product',
                 'kodetreatment' => $this->GetIDTreatment($this->UserInfo->unit_id),
@@ -42,8 +42,7 @@ class TreatmentController extends BaseController
                 // '' => $this->db->table('supplier')->where('unit_id', $this->UserInfo->unit_id)->get()->getResultObject(),
             ];
             return view('/pages/treatment/treatment', $data);
-        }else{
-            
+        } else {
         }
     }
 
@@ -70,12 +69,12 @@ class TreatmentController extends BaseController
         ];
 
         $query = $this->db->table('treatment')->insert($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully created',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error creating',
@@ -89,7 +88,7 @@ class TreatmentController extends BaseController
         $unit_id = $this->UserInfo->unit_id;
         $query = $this->db->table('treatment')->where('unit_id', $unit_id)->get()->getResultObject();
         $no = 1;
-        if(empty($query)){
+        if (empty($query)) {
             $data = [
                 'no' => "",
                 'action' => "",
@@ -100,7 +99,7 @@ class TreatmentController extends BaseController
                 'created_at' => ""
             ];
             $response[] = $data;
-        }else{
+        } else {
             foreach ($query as $row) {
                 $data = [
                     'no' => $no,
@@ -151,12 +150,12 @@ class TreatmentController extends BaseController
         ];
 
         $query = $this->db->table('treatment')->where('id_treatment', $id_treat)->update($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully Updated',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error Updated',
@@ -170,12 +169,12 @@ class TreatmentController extends BaseController
     {
         $id_treat = $this->request->getPost('id_treat');
         $query = $this->db->table('treatment')->where('id_treatment', $id_treat)->delete();
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully Deleted !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error Deleted !',
@@ -183,5 +182,4 @@ class TreatmentController extends BaseController
         }
         return json_encode($response);
     }
-
 }

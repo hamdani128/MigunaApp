@@ -21,6 +21,15 @@
     <link href="<?= base_url() ?>/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet"
         type="text/css" />
 
+    <!-- Select 2 -->
+    <link href="<?= base_url() ?>/assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"
+        rel="stylesheet">
+    <link href="<?= base_url() ?>/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+    <link href="<?= base_url() ?>/assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css"
+        rel="stylesheet" />
+
     <!-- upload -->
     <link href="<?= base_url() ?>/assets/plugins/dropify/css/dropify.min.css" rel="stylesheet">
 
@@ -127,6 +136,13 @@
     <script src="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.all.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.all.min.js"></script>
+    <!-- select multiple -->
+    <script src="<?= base_url() ?>/assets/plugins/moment/moment.js"></script>
+    <script src="<?= base_url() ?>/assets/plugins/select2/select2.min.js"></script>
+    <script src="<?= base_url() ?>/assets/pages/jquery.forms-advanced.js"></script>
+    <script src="<?= base_url() ?>/assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- money -->
+    <script src="<?= base_url() ?>/assets/js/jquery.maskMoney.min.js"></script>
     <!-- App js -->
     <script src="<?= base_url() ?>/assets/js/app.js"></script>
     <!-- Custom -->

@@ -67,7 +67,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/product/supplier/insert', 'ProductController::supplier_add');
     $routes->get('/product/supplier/getdata', 'ProductController::supplier_getdata');
     $routes->post('/product/supplier/edit_show', 'ProductController::supplier_edit_show');
-    $routes->post('/product/supplier/update_data_supplier' , 'ProductController::supplier_update_data');
+    $routes->post('/product/supplier/update_data_supplier', 'ProductController::supplier_update_data');
     $routes->post('/product/supplier/delete', 'ProductController::supplier_delete');
 
     // SDM
@@ -75,6 +75,8 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('/sdm/getdata', 'SDMController::getdata');
     $routes->post('/sdm/insert', 'SDMController::insert');
     $routes->post('/sdm/edit_show', 'SDMController::edit_show');
+    $routes->post('/sdm/update', 'SDMController::update');
+    $routes->post('/sdm/delete', 'SDMController::delete');
 
     // Treatment
     $routes->get('/treatment', 'TreatmentController::index');
@@ -91,12 +93,30 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('/lokasi/getdata', 'LokasiController::getdata');
     $routes->post('/lokasi/update', 'LokasiController::update');
     $routes->post('/lokasi/delete', 'LokasiController::delete');
-    
+
     // Transaksi Kunjungan
     $routes->get('/transaksi/kunjungan', 'TransaksiKunjungan::index');
     $routes->get('/transaksi/kunjungan/getdata', 'TransaksiKunjungan::getdata');
     $routes->post('/transaksi/kunjungan/add_diagnosa', 'TransaksiKunjungan::add_diagnosa');
-    
+
+    // Transaksi Treatment
+    $routes->get('/transaksi/treatment', 'TransaksiTreatment::index');
+    $routes->get('/transaksi/treatment/getdata_filter', 'TransaksiTreatment::getdata_filter');
+    $routes->post('/transaksi/treatment/value_treat', 'TransaksiTreatment::value_treat');
+    $routes->post('/transaksi/treatment/value_prod', 'TransaksiTreatment::value_prod');
+    $routes->post('/transaksi/treatment/get_no_antrian', 'TransaksiTreatment::get_no_antrian');
+    $routes->post('/transaksi/treatment/pay_transaksi_detail_treat', 'TransaksiTreatment::pay_transaksi_detail_treat');
+    $routes->post('/transaksi/treatment/pay_transaksi_detail_prod', 'TransaksiTreatment::pay_transaksi_detail_prod');
+    $routes->post('/transaksi/treatment/pay_transaksi', 'TransaksiTreatment::pay_transaksi');
+    $routes->post('/transaksi/treatment/pay_transaksi_debit', 'TransaksiTreatment::pay_transaksi_debit');
+    $routes->get('/transaksi/treatment/invoice', 'TransaksiTreatment::invoice');
+    $routes->post('/transaksi/treatment/list_transaksi', 'TransaksiTreatment::list_transaksi');
+    $routes->get('/transaksi/treatment/getdata_visit', 'TransaksiTreatment::getdata_visit');
+    $routes->get('/transaksi/treatment/getdata_potsub', 'TransaksiTreatment::getdata_potsub');
+
+    // Transaksi Product
+
+
     // info users
     $routes->get('/infousers', 'InfouserController::index');
     $routes->post('/infousers/insert', 'InfouserController::insert');

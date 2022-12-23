@@ -37,7 +37,7 @@ class SDMController extends BaseController
                         'no' => '',
                         'action' => '',
                         'nama' => '',
-                        'status' => '',
+                        'jabatan' => '',
                         'jk' => '',
                         'created_at' => '',
                     ];
@@ -48,7 +48,7 @@ class SDMController extends BaseController
                                 'no' => $no,
                                 'action' =>"<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_sdm()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_sdm()'><i class='fa fa-trash'></i></button></div>",
                                 'nama' => $row->nama,
-                                'status' => $row->status,
+                                'jabatan' => $row->jabatan,
                                 'jk' => $row->jk,
                                 'created_at' => $row->created_at,
                         ];
@@ -65,7 +65,7 @@ class SDMController extends BaseController
                         'no' => '',
                         'action' => '',
                         'nama' => '',
-                        'status' => '',
+                        'jabatan' => '',
                         'jk' => '',
                         'created_at' => '',
                     ];
@@ -78,7 +78,7 @@ class SDMController extends BaseController
                                 'action' =>"<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_sdm()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_sdm()'><i class='fa fa-trash'></i></button></div>",
                                 'id_pasien' => $row->id_pasien,
                                 'nama' => $row->nama,
-                                'status' => $row->status,
+                                'jabatan' => $row->jabatan,
                                 'jk' => $row->jk,
                                 'created_at' => $row->created_at,
                         ];
@@ -142,4 +142,53 @@ class SDMController extends BaseController
         return json_encode($data);
     }
 
+    public function update()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date('Y-m-d H:i:s');
+        $id = $this->request->getPost("id");
+        $nama = $this->request->getPost("nama");
+        $status = $this->request->getPost("status");
+        $jabatan = $this->request->getPost("jabatan");
+        $jk = $this->request->getPost("jk");
+        $data = [
+            'nama' => $nama,
+            'status' => $status,
+            'jabatan' => $jabatan,
+            'jk' => $jk,
+            'updated_at' => $now,
+            'created_at' => $now,
+        ];
+        $query = $this->db->table('sdm')->where('id', $id)->update($data);
+        if($query){
+            $response = [
+                'status' => 'success',
+                'message' => 'Data saved successfully',
+            ];
+        }else{
+            $response = [
+                'status' => 'error',
+                'message' => 'Data Error',
+            ];
+        }
+        return json_encode($response);
+    }
+
+    public function delete()
+    {
+        $nama = $this->request->getPost('nama');
+        $query = $this->db->table('sdm')->where('nama', $nama)->delete();
+        if($query){
+            $response = [
+                'status' => 'success',
+                'message' => 'success Deleted !',
+            ];
+        }else{
+            $response = [
+                'status' => 'error',
+                'message' => 'error Deleted !',
+            ];
+        }
+        return json_encode($response);
+    }
 }

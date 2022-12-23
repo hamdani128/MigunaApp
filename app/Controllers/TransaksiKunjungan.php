@@ -16,11 +16,19 @@ class TransaksiKunjungan extends BaseController
     
     public function index()
     {
+        date_default_timezone_set('Asia/Jakarta');
         if($this->UserInfo->level == 'Admin Cabang'){
-            // $datapasien = $this->db->table('pasien')->where('unit_id', $this->UserInfo->unit_id)->get()->getResultObject();
+            $sdm = $this->db->table('sdm')->get()->getResultObject();
+            $kunjungan = $this->db->table('antrian_kunjungan')->where('tanggal', date('Y-m-d'))->where('unit_id', $this->UserInfo->unit_id)->countAllResults();
+            $selesai_diagnosa = $this->db->table('antrian_kunjungan')->where('status', 'antrian')->where('tanggal', date('Y-m-d'))->where('unit_id', $this->UserInfo->unit_id)->countAllResults();
+            $transaksi = $this->db->table('antrian_kunjungan')->where('status', 'Selesai Diagnosa')->where('tanggal', date('Y-m-d'))->where('unit_id', $this->UserInfo->unit_id)->countAllResults();
             $data = [
                 'title' => 'App Miguna - Kunjungan Pasien',
                 'userinfo' => $this->UserInfo,
+                'sdm' => $sdm,
+                'total_kunjungan' => $kunjungan,
+                'total_diagnosa' => $selesai_diagnosa,
+                'total_transaksi' => $transaksi,
             ];
             return view('/pages/transaksi/transaksi_kunjungan', $data);
         }else{
@@ -45,15 +53,17 @@ class TransaksiKunjungan extends BaseController
                         a.created_at as created_at
                         FROM antrian_kunjungan a 
                         LEFT JOIN pasien b ON a.id_pasien = b.id_pasien 
-                        WHERE a.unit_id='" . $unit_id . "' AND a.tanggal='" . $now . "'";
+                        WHERE a.unit_id=" . $unit_id . " AND a.tanggal='" . $now . "'";
                 $query = $this->db->query($SQL)->getResultObject();
                 $no=1;
-                if(!empty($query)){
+                if(count($query) > 0){
                     foreach ($query as $row){
                         if($row->status == 'antrian'){
                             $status = "<h5 class='badge badge-boxed  badge-soft-warning'>".$row->status."</h5>";
+                        }else{
+                            $status = "<h5 class='badge badge-boxed  badge-soft-primary'>".$row->status."</h5>";
                         }
-                        $data = [
+                        $data = [   
                             'no' => $no,
                             'action' => "<div class='button-group'><button class='btn btn-md btn-danger' onclick='delete_transaksi_kunjungan()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='diagnosa_pasien_dokter()'><i class='fas fa-user-edit'></i></button><button class='btn btn-md btn-success'><i class='fas fa-id-card'></i></button></div>",
                             'no_antrian' => $row->no_antrian,
@@ -63,8 +73,10 @@ class TransaksiKunjungan extends BaseController
                             'status' => $status,
                             'tanggal' => $row->tanggal,
                             'created_at' => $row->created_at,
+                            'status_asli' => $row->status,
                         ];
                         $no++;
+                        $response[] = $data;
                     }
                 }else{
                     $data = [
@@ -77,14 +89,15 @@ class TransaksiKunjungan extends BaseController
                         'status' => '',
                         'tanggal' => '',
                         'created_at' => '',
+                        'status_asli' => '',
                     ];
                     $no++;
+                    $response[] = $data;
                 }
-                $response[] = $data;
-                return json_encode($response);
         }else{
             
         }
+        return json_encode($response);
     }
 
     public function add_diagnosa()
@@ -95,8 +108,10 @@ class TransaksiKunjungan extends BaseController
         $id_pasien = $this->request->getPost("id_pasien");
         $catatan_diagnosa = $this->request->getPost("diagnosa");
         $resep_obat = $this->request->getPost("resep");
+        $id_sdm = $this->request->getPost("id_sdm");
+        $sdm = $this->request->getPost("sdm");
         
-            $file1 = $_FILES["file1"];
+        $file1 = $_FILES["file1"];
         $file2 = $_FILES["file2"];
         $file3 = $_FILES["file3"];
         $file4 = $_FILES["file4"];
@@ -132,7 +147,8 @@ class TransaksiKunjungan extends BaseController
 
         $data2 = [
             'status' => 'Selesai Diagnosa',
-            'eksekusi_sdm' => 'Dr.Eksks',
+            'eksekusi_sdm' => $sdm,
+            'id_sdm' => $id_sdm,
         ];
         
         $query1 = $this->db->table('diagnosa')->insert($data1);
