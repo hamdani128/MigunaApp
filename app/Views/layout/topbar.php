@@ -4,13 +4,15 @@
 
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 <span>
-                    <img src="<?= base_url() ?>/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
+                    <img src="<?= base_url() ?>/assets/images/miguna.jpg" alt="logo-small" class="logo-sm">
                 </span>
-                <span>
-                    <img src="<?= base_url() ?>/assets/images/logo-dark.png" alt="logo-large" class="logo-lg">
-                </span>
+                <span class="logo_name">MIGUNA
+                    APP CLINIC</span>
+                <!-- <span>
+                    <img src="<?= base_url() ?>/assets/images/miguna.jpg" alt="logo-large" class="logo-lg">
+                </span> -->
             </a>
         </div>
 

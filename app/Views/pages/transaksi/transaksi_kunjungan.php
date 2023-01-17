@@ -131,7 +131,7 @@
 <!-- Modal Diagnosa -->
 <div id="my-modal-diagnosa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="title_diagnosa"></h5>
@@ -169,8 +169,8 @@
                                 <label for="" class="form-label">PIC Pelayanan</label>
                                 <select name="cmb_pic" id="cmb_pic" class="form-control">
                                     <option value="">Pilih PIC</option>
-                                    <?php foreach($sdm as $row) : ?>
-                                    <option value="<?php echo $row->id?>"><?= $row->nama; ?></option>
+                                    <?php foreach ($sdm as $row) : ?>
+                                    <option value="<?php echo $row->id ?>"><?= $row->nama; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -211,5 +211,197 @@
     </div>
 </div>
 <!-- End Modal Diagnosa -->
+
+
+<!-- Modal Riwayat Kunjungan -->
+<div id="my-modal-riwayat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white" id="my-titla-riwayat"></h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header bg-dark">
+                                <span class="text-white">Riwayat Tanggal Kunjungan</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table id="table-transaksi-riwayat"
+                                            class="table dt-responsive nowrap table-bordered"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#No</th>
+                                                    <th>#Action</th>
+                                                    <th>Tanggal</th>
+                                                    <th>ID Pasien</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header bg-dark">
+                                <span class="text-white">Informasi Treatment</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table id="table-list-treatment"
+                                                class="table dt-responsive nowrap table-bordered table-striped"
+                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kode</th>
+                                                        <th>Treament</th>
+                                                        <th>Harga</th>
+                                                        <th>Qty</th>
+                                                        <th>Subtotal</th>
+                                                        <th>Potongan</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody-list-treat-riw">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header bg-dark">
+                                <span class="text-white">Informasi Product</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table dt-responsive nowrap table-bordered table-striped"
+                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kode</th>
+                                                        <th>Produk / Obat</th>
+                                                        <th>Satuan</th>
+                                                        <th>Harga</th>
+                                                        <th>Qty</th>
+                                                        <th>Subtotal</th>
+                                                        <th>Potongan</th>
+                                                        <th>Deskripsi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody-list-prod-riw">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header bg-dark">
+                                <span class="text-white">Informasi Catatan Diagnosa</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Catatan Anamnesa</label>
+                                            <textarea name="riwayat_catatan" id="riwayat_catatan" cols="5" rows="5"
+                                                class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Catatan Resep</label>
+                                            <textarea rows="5" cols="5" class="form-control" id="riwayat_catatan_resep"
+                                                name="riwayat_catatan_resep"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <img class="card-img-top img-fluid" id="img1"
+                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title mt-0">Image Before</h4>
+                                                    </div>
+                                                    <!--end card -body-->
+                                                </div>
+                                                <!--end card-->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <img class="card-img-top img-fluid" id="img2"
+                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title mt-0">Image Diagnosa</h4>
+                                                    </div>
+                                                    <!--end card -body-->
+                                                </div>
+                                                <!--end card-->
+                                            </div>
+                                        </div>
+                                        <div class="row pt-2">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <img class="card-img-top img-fluid" id="img3"
+                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title mt-0">Image Diagnosa</h4>
+                                                    </div>
+                                                    <!--end card -body-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <img class="card-img-top img-fluid" id="img4"
+                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title mt-0">Image After</h4>
+                                                    </div>
+                                                    <!--end card -body-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                Footer
+            </div>
+        </div>
+    </div>
+</div>
 
 <?= $this->EndSection(); ?>

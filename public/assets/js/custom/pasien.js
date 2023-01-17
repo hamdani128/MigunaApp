@@ -1,11 +1,11 @@
 $(document).ready(function () {
     // var no = 1;
     $('#table-pasien-admin').DataTable({
-        "ajax": {
-            "url": "/pasien/admin/getdata",
-            "dataSrc": "",
+        ajax: {
+            url: "/pasien/admin/getdata",
+            dataSrc: "",
         },
-        "columns": [
+        columns: [
             { "data": "no" },
             { "data": "action" },
             { "data": "id_pasien" },
@@ -70,8 +70,7 @@ function simpan_data_pasien_by_admin() {
                     });
                 }
             }
-        }
-        );
+        });
     }
 }
 

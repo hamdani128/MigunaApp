@@ -2,34 +2,6 @@ $(document).ready(function () {
     $(".money").maskMoney({ thousands: '.', decimal: ',', affixesStay: false, precision: 0 });
 });
 
-function getVisit() {
-    $.ajax({
-        url: "/transaksi/treatment/getdata_visit",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            document.getElementById("visit_jlh").innerHTML = data.jumlah;
-        }
-    });
-}
-
-function getPotongan() {
-    $.ajax({
-        url: "/transaksi/treatment/getdata_potsub",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            document.getElementById("potongan_jlh").innerHTML = "Rp." + new Intl.NumberFormat().format(data.jumlah);
-        }
-    });
-}
-
-
-function refresh_summary_tr_trans() {
-    getVisit()
-    getPotongan()
-}
-
 $(document).ready(function () {
     $('#table-transaksi-kunjungan').DataTable({
         "ajax": {
@@ -65,8 +37,37 @@ $(document).ready(function () {
             { "data": "harga" },
         ],
     });
-    // getVisit();
 });
+
+function getVisit() {
+    $.ajax({
+        url: "/transaksi/treatment/getdata_visit",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            document.getElementById("visit_jlh").innerHTML = data.jumlah;
+        }
+    });
+}
+// getVisit();
+function getPotongan() {
+    $.ajax({
+        url: "/transaksi/treatment/getdata_potsub",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            document.getElementById("potongan_jlh").innerHTML = "Rp." + (new Intl.NumberFormat('id-ID').format(data.jumlah_potongan));
+            document.getElementById("subtotal_jlh").innerHTML = "Rp." + (new Intl.NumberFormat('id-ID').format(data.jumlah_subtotal));
+            document.getElementById("total_jlh").innerHTML = "Rp." + (new Intl.NumberFormat('id-ID').format(data.total));
+        }
+    });
+}
+// getPotongan()
+
+function refresh_summary_tr_trans() {
+    getVisit();
+    getPotongan()
+}
 
 function OnChange_Filter() {
     var cmb_filter = document.getElementById("cmb_treat");
@@ -194,6 +195,7 @@ function diagnosa_pasien_dokter() {
         currentRow.onclick = createClickHandler(currentRow);
     }
 }
+
 
 function simpan_diagnosa() {
     var no_antrian = document.getElementById("no_antrian").innerHTML;

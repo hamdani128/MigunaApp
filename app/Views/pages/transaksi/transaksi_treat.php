@@ -53,7 +53,7 @@
                         <i class="dripicons-jewel font-20 text-secondary"></i>
                     </div>
                     <span class="badge badge-success">Subtotal</span>
-                    <h3 class="font-weight-bold">Rp.0</h3>
+                    <h3 class="font-weight-bold" id="subtotal_jlh">Rp.0</h3>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         <i class="dripicons-wallet font-20 text-secondary"></i>
                     </div>
                     <span class="badge badge-dark">Total All</span>
-                    <h3 class="font-weight-bold">Rp.0</h3>
+                    <h3 class="font-weight-bold" id="total_jlh">Rp.0</h3>
                 </div>
             </div>
         </div>

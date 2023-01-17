@@ -9,7 +9,7 @@
     <meta content="Mannatthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/miguna.jpg">
     <link href="<?= base_url() ?>/assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
 
     <!-- DataTables -->
@@ -43,6 +43,19 @@
     <link href="<?= base_url() ?>/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>/assets/css/style.css" rel="stylesheet" type="text/css" />
 
+    <!-- Slider -->
+    <link href="<?= base_url() ?>/assets/plugins/slick/slick.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>/assets/plugins/slick/slick-theme.css" rel="stylesheet" type="text/css" />
+
+    <style>
+    .logo_name {
+        font-size: 16px;
+        padding-left: 5pt;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        font-weight: bold;
+    }
+    </style>
 </head>
 
 <body>
@@ -145,7 +158,12 @@
     <script src="<?= base_url() ?>/assets/js/jquery.maskMoney.min.js"></script>
     <!-- App js -->
     <script src="<?= base_url() ?>/assets/js/app.js"></script>
+    <!-- slider -->
+    <script src="<?= base_url() ?>/assets/plugins/slick/slick.min.js"></script>
+    <script src="<?= base_url() ?>/assets/pages/jquery.slick.init.js"></script>
+
     <!-- Custom -->
+    <script src="<?= base_url() ?>/assets/js/custom/profile.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/lokasi.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/infousers.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/pasien.js"></script>
@@ -154,6 +172,7 @@
     <script src="<?= base_url() ?>/assets/js/custom/treatment.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/transaksi.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom/sdm.js"></script>
+    <script src="<?= base_url() ?>/assets/js/custom/transaksi2.js"></script>
 </body>
 
 </html>

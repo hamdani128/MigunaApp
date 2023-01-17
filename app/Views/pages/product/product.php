@@ -84,8 +84,9 @@
                                                             <th>Harga</th>
                                                             <th>Qty</th>
                                                             <th>Subtotal</th>
-                                                            <th>Suupplier</th>
-                                                            <th>Created At</th>
+                                                            <th>Supplier</th>
+                                                            <th></th>
+                                                            <th>Kategori</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -195,8 +196,8 @@
                             <label for="" class="form-label">Supplier</label>
                             <select name="supplier" id="supplier" class="form-control">
                                 <option value="">Pilih Supplier</option>
-                                <?php if(count($supplier) > 0): ?>
-                                <?php foreach($supplier as $row)  : ?>
+                                <?php if (count($supplier) > 0) : ?>
+                                <?php foreach ($supplier as $row) : ?>
                                 <option value="<?= $row->id; ?>"><?= $row->supplier; ?></option>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
@@ -265,8 +266,8 @@
                             <label for="" class="form-label">Supplier</label>
                             <select name="supplier_update" id="supplier_update" class="form-control">
                                 <option value="">Pilih Supplier</option>
-                                <?php if(count($supplier) > 0): ?>
-                                <?php foreach($supplier as $row)  : ?>
+                                <?php if (count($supplier) > 0) : ?>
+                                <?php foreach ($supplier as $row) : ?>
                                 <option value="<?= $row->id; ?>"><?= $row->supplier; ?></option>
                                 <?php endforeach; ?>
                                 <?php endif; ?>

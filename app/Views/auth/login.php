@@ -9,7 +9,7 @@
     <meta content="Mannatthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/miguna.jpg">
     <!-- Sweet Alert -->
     <link href="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url() ?>/assets/plugins/sweet-alert2/sweetalert2.css" rel="stylesheet" type="text/css">
@@ -31,48 +31,47 @@
 
                     <div class="px-3">
                         <div class="media">
-                            <a href="index.html" class="logo logo-admin"><img
-                                    src="<?= base_url() ?>/assets/images/logo-sm.png" height="55" alt="logo"
-                                    class="my-3"></a>
+                            <a href="#" class="logo logo-admin"><img src="<?= base_url() ?>/assets/images/miguna.jpg"
+                                    height="55" alt="logo" class="my-3"></a>
                             <div class="media-body ml-3 align-self-center">
-                                <h4 class="mt-0 mb-1">Login on Frogetor</h4>
-                                <p class="text-muted mb-0">Sign in to continue to Frogetor.</p>
+                                <h4 class="mt-0 mb-1">Login on Miguna App</h4>
+                                <p class="text-muted mb-0">Sign in to continue to Miguna Clinic.</p>
                             </div>
                         </div>
 
                         <!-- Alert -->
-                        <?php if (!empty(session()->getFlashdata('fail'))): ?>
+                        <?php if (!empty(session()->getFlashdata('fail'))) : ?>
                         <div class="alert alert-danger" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <i class="dripicons-wrong mr-2"></i> <strong>Notifikasi</strong><br>
-                            <?=session()->getFlashdata('fail');?>
+                            <?= session()->getFlashdata('fail'); ?>
                         </div>
-                        <?php endif?>
+                        <?php endif ?>
 
-                        <?php if (!empty(session()->getFlashdata('logout'))): ?>
+                        <?php if (!empty(session()->getFlashdata('logout'))) : ?>
                         <div class="alert alert-success" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <i class="dripicons-checkmark mr-2"></i> <strong>Notifikasi</strong><br>
-                            <?=session()->getFlashdata('logout');?>
+                            <?= session()->getFlashdata('logout'); ?>
                         </div>
-                        <?php endif?>
+                        <?php endif ?>
 
-                        <?php if (!empty(session()->getFlashdata('warning'))): ?>
+                        <?php if (!empty(session()->getFlashdata('warning'))) : ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true"><i class="mdi mdi-close"></i></span>
                             </button>
-                            <strong>Warning!</strong> <?=session()->getFlashdata('warning')?>.
+                            <strong>Warning!</strong> <?= session()->getFlashdata('warning') ?>.
                         </div>
-                        <?php endif?>
+                        <?php endif ?>
                         <!-- End Alert -->
 
 
-                        <form class="form-horizontal my-4" action="index.html">
+                        <form class="form-horizontal my-4" action="#">
 
                             <div class="form-group">
                                 <label for="username">Username</label>
@@ -108,7 +107,7 @@
                                 </div> -->
                                 <div class="col-sm-12 text-right">
                                     <a href="pages-recoverpw-2.html" class="text-muted font-13"><i
-                                            class="mdi mdi-lock"></i> Forgot your password?</a>
+                                            class="mdi mdi-lock"></i> Lupa Password ?</a>
                                 </div>
                             </div>
 
@@ -116,7 +115,7 @@
                                 <div class="col-12 mt-2">
                                     <button class="btn btn-primary btn-block waves-effect waves-light" type="button"
                                         onclick="login_administrator()">
-                                        Log In
+                                        Masuk
                                         <i class="fas fa-sign-in-alt ml-1"></i></button>
                                 </div>
                             </div>
@@ -128,11 +127,11 @@
         <div class="col-lg-9 p-0 d-flex justify-content-center">
             <div class="accountbg d-flex align-items-center">
                 <div class="account-title text-white text-center">
-                    <img src="<?= base_url() ?>/assets/images/logo-sm.png" alt="" class="thumb-sm">
-                    <h4 class="mt-3">Welcome To Frogetor</h4>
+                    <img src="<?= base_url() ?>/assets/images/miguna.jpg" alt="" class="thumb-sm">
+                    <h4 class="mt-3">Selamat Datang Miguna Clinic App</h4>
                     <div class="border w-25 mx-auto border-primary"></div>
-                    <h1 class="">Let's Get Started</h1>
-                    <p class="font-14 mt-3">Don't have an account ? <a href="" class="text-primary">Sign up</a></p>
+                    <h3 class="">Mari Bergabung Dan Rasakan Pelayanan Kami </h3>
+                    <p class="font-14 mt-3">Tidak Punya Akun ? <a href="" class="text-primary">Sign up</a></p>
 
                 </div>
             </div>

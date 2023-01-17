@@ -9,8 +9,6 @@ use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-
-
 class TransaksiTreatment extends BaseController
 {
 

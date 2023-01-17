@@ -7,8 +7,8 @@ use CodeIgniter\Database\Config;
 
 class ProductController extends BaseController
 {
-    private $db,$UserInfo;
-    public function __construct() 
+    private $db, $UserInfo;
+    public function __construct()
     {
         $this->db = Config::connect();
         $this->UserInfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
@@ -27,13 +27,13 @@ class ProductController extends BaseController
         } else {
             $no = "#PR" . $unit_id . "-" . "0001";
         }
-        $kode = "#PR". $unit_id . "-". $no;
+        $kode = "#PR" . $unit_id . "-" . $no;
         return $kode;
     }
 
     public function index()
     {
-        if($this->UserInfo->level == 'Admin Cabang'){
+        if ($this->UserInfo->level == 'Admin Cabang') {
             $data = [
                 'title' => 'App Miguna - Info Product',
                 'kodeproduct' => $this->GetIDProductCabang($this->UserInfo->unit_id),
@@ -41,8 +41,7 @@ class ProductController extends BaseController
                 'supplier' => $this->db->table('supplier')->where('unit_id', $this->UserInfo->unit_id)->get()->getResultObject(),
             ];
             return view('/pages/product/product', $data);
-        }else{
-            
+        } else {
         }
     }
 
@@ -57,13 +56,13 @@ class ProductController extends BaseController
                 a.qty as qty,
                 a.subtotal as subtotal,
                 b.supplier as supplier,
-                a.created_at as created_at
+                a.kategori as kategori
                 FROM product a
                 LEFT JOIN supplier b ON a.id_supplier = b.id
                 WHERE a.unit_id = '" . $unit_id . "'";
         $query = $this->db->query($SQL)->getResultObject();
         $no = 1;
-        foreach($query as $row){
+        foreach ($query as $row) {
             $data = [
                 'no' => $no,
                 'action' => "<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_product()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_product()'><i class='fa fa-trash'></i></button></div>",
@@ -74,11 +73,11 @@ class ProductController extends BaseController
                 'qty' => $row->qty,
                 'subtotal' => $row->subtotal,
                 'supplier' => $row->supplier,
-                'created_at' => $row->created_at,
+                'kategori' => $row->kategori,
             ];
             $no++;
+            $response[] = $data;
         }
-        $response[] = $data;
         return json_encode($response);
     }
 
@@ -111,12 +110,12 @@ class ProductController extends BaseController
         ];
         $query = $this->db->table('product')->insert($data);
 
-        if($query){
-            $response=[
+        if ($query) {
+            $response = [
                 'status' => 'success',
                 'message' => 'Successfully !',
             ];
-        } else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error',
@@ -170,12 +169,12 @@ class ProductController extends BaseController
             'updated_at' => $now,
         ];
         $query = $this->db->table('product')->where('id', $id)->update($data);
-        if($query){
-            $response=[
+        if ($query) {
+            $response = [
                 'status' => 'success',
                 'message' => 'Successfully !',
             ];
-        } else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error',
@@ -188,13 +187,13 @@ class ProductController extends BaseController
     {
         $kode = $this->request->getPost('kode');
         $query = $this->db->table('product')->where('kode', $kode)->delete();
-        if($query){
-            $response=[
+        if ($query) {
+            $response = [
                 'status' => 'success',
                 'message' => 'Successfully !',
             ];
-        }else{
-            $response=[
+        } else {
+            $response = [
                 'status' => 'error',
                 'message' => 'Error !',
             ];
@@ -225,12 +224,12 @@ class ProductController extends BaseController
         ];
 
         $query = $this->db->table('supplier')->insert($data);
-        if ($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully created',
             ];
-        }else{  
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'error creating',
@@ -242,7 +241,7 @@ class ProductController extends BaseController
     public function supplier_getdata()
     {
         $query = $this->db->table('supplier')->where('unit_id', $this->UserInfo->unit_id)->get()->getResultObject();
-        $no=1;
+        $no = 1;
         foreach ($query as $row) {
             $data = [
                 "no" => $no,
@@ -253,8 +252,8 @@ class ProductController extends BaseController
                 "created_at" => $row->created_at,
             ];
             $no++;
+            $response[] = $data;
         }
-        $response[] = $data;
         return json_encode($response);
     }
 
@@ -294,12 +293,12 @@ class ProductController extends BaseController
         ];
 
         $query = $this->db->table('supplier')->where('id', $id)->update($data);
-        if ($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully Updated !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'error Updated',
@@ -314,12 +313,12 @@ class ProductController extends BaseController
         $datasupp = $this->db->table('supplier')->where('supplier', $supplier)->get()->getRowObject();
         $id = $datasupp->id;
         $query = $this->db->table('supplier')->where('id', $id)->delete();
-        if ($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'successfully Deleted !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'error Deleted !',
@@ -327,6 +326,4 @@ class ProductController extends BaseController
         }
         return json_encode($response);
     }
-
-
 }

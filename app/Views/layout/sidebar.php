@@ -11,7 +11,7 @@
                 <li><a href="/">Dashboard</a></li>
             </ul>
         </li>
-
+        <?php if ($userinfo->level == "Admin Cabang") { ?>
         <li>
             <a href="javascript: void(0);"><i class="mdi mdi-apps"></i><span>Master</span><span class="menu-arrow"><i
                         class="mdi mdi-chevron-right"></i></span></a>
@@ -46,7 +46,9 @@
                 <li><a href="/transaksi/product">Product</a></li>
             </ul>
         </li>
-        <?php if ($userinfo->level !== 'Admin Cabang') { ?>
+        <?php } ?>
+
+        <?php if ($userinfo->level == 'Admin') { ?>
         <li>
             <a href="javascript: void(0);">
                 <i class="mdi mdi-settings"></i>
@@ -57,6 +59,7 @@
             <ul class="nav-second-level" aria-expanded="false">
                 <li><a href="/lokasi">Lokasi Cabang</a></li>
                 <li><a href="/infousers">Users</a></li>
+                <li><a href="/profile">Profile</a></li>
             </ul>
         </li>
         <?php } ?>

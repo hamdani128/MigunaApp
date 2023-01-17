@@ -67,12 +67,12 @@
                                     <tr>
                                         <th>#No</th>
                                         <th>#Action</th>
+                                        <th>Status Tahapan</th>
+                                        <th>Tanggal</th>
                                         <th>No. Antrian</th>
                                         <th>ID Pasien</th>
                                         <th>Nama</th>
                                         <th>Catatan Riwayat</th>
-                                        <th>Status Tahapan</th>
-                                        <th>Tanggal</th>
                                         <th>Created At</th>
                                     </tr>
                                 </thead>

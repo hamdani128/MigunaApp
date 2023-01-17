@@ -14,7 +14,7 @@ $(document).ready(function () {
             { "data": "qty" },
             { "data": "subtotal" },
             { "data": "supplier" },
-            { "data": "created_at" }
+            { "data": "kategori" }
         ],
     });
 

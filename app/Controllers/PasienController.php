@@ -8,8 +8,8 @@ use CodeIgniter\Entity\Cast\JsonCast;
 
 class PasienController extends BaseController
 {
-    private $db,$UserInfo;
-    public function __construct() 
+    private $db, $UserInfo;
+    public function __construct()
     {
         $this->db = Config::connect();
         $this->UserInfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
@@ -28,7 +28,7 @@ class PasienController extends BaseController
         } else {
             $no = "0001";
         }
-        $kode = '#P'. $unit_id . "-" . date('Ymd') . $no;
+        $kode = '#P' . $unit_id . "-" . date('Ymd') . $no;
         return $kode;
     }
 
@@ -45,28 +45,27 @@ class PasienController extends BaseController
         } else {
             $no = "0001";
         }
-        $kode = 'ANT'. $unit_id . "-" . date('Ymd') . $no;
+        $kode = 'ANT' . $unit_id . "-" . date('Ymd') . $no;
         return $kode;
     }
 
 
     public function index()
-    {   
-        if($this->UserInfo->level == 'Admin Cabang'){
+    {
+        if ($this->UserInfo->level == 'Admin Cabang') {
             $datapasien = $this->db->table('pasien')->where('unit_id', $this->UserInfo->unit_id)->get()->getResultObject();
             $data = [
                 'title' => 'App Miguna - Pasien',
                 'userinfo' => $this->UserInfo,
                 'datapasien' => $datapasien,
                 'no_antrian' => $this->GetIDPasienKunjungan($this->UserInfo->unit_id),
-            ];  
+            ];
             return view('/pages/pasien/pasien', $data);
-        }else{
-            
+        } else {
         }
     }
 
-    
+
 
     public function admin_insert()
     {
@@ -102,12 +101,12 @@ class PasienController extends BaseController
         ];
 
         $query = $this->db->table('pasien')->insert($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'Data saved successfully',
             ];
-        }else{
+        } else {
             $reponse = [
                 'status' => 'error',
                 'message' => 'Error saving data',
@@ -115,17 +114,17 @@ class PasienController extends BaseController
         }
         return json_encode($response);
     }
-    
+
 
     public function admin_getdata()
     {
         $unit_id = $this->UserInfo->unit_id;
         $query = $this->db->table('pasien')->where('unit_id', $unit_id)->get()->getResultObject();
-        $no=1;
-        if(empty($query)){
+        $no = 1;
+        if (empty($query)) {
             $data = [
                 'no' => '',
-                'action' =>'',
+                'action' => '',
                 'id_pasien' => '',
                 'nik' => '',
                 'nama' => '',
@@ -137,29 +136,29 @@ class PasienController extends BaseController
                 'registri' => '',
                 'created_at' => '',
             ];
-            $response = $data;    
-        }else{
-            foreach ($query as $row){
+            $response = $data;
+        } else {
+            foreach ($query as $row) {
                 $data = [
-                        'no' => $no,
-                        'action' =>"<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_pasien()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_pasien()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='antrian_pasien_admin()'><i class='fas fa-user-friends'></i></button><button class='btn btn-md btn-success'><i class='fas fa-id-card'></i></button></div>",
-                        'id_pasien' => $row->id_pasien,
-                        'nik' => $row->nik,
-                        'nama' => $row->nama,
-                        'usia' => $row->usia,
-                        'alamat' => $row->alamat,
-                        'jk' => $row->jk,
-                        'pekerjaan' => $row->pekerjaan,
-                        'hp' => $row->hp,
-                        'registri' => $row->registri,
-                        'created_at' => $row->created_at,
+                    'no' => $no,
+                    'action' => "<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_pasien()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_pasien()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='antrian_pasien_admin()'><i class='fas fa-user-friends'></i></button><button class='btn btn-md btn-success'><i class='fas fa-id-card'></i></button></div>",
+                    'id_pasien' => $row->id_pasien,
+                    'nik' => $row->nik,
+                    'nama' => $row->nama,
+                    'usia' => $row->usia,
+                    'alamat' => $row->alamat,
+                    'jk' => $row->jk,
+                    'pekerjaan' => $row->pekerjaan,
+                    'hp' => $row->hp,
+                    'registri' => $row->registri,
+                    'created_at' => $row->created_at,
                 ];
-                $response[] = $data; 
+                $response[] = $data;
                 $no++;
             }
         }
         return json_encode($response);
-}
+    }
 
     public function admin_edit_show()
     {
@@ -207,13 +206,13 @@ class PasienController extends BaseController
         ];
 
         $query = $this->db->table('pasien')->where('id_pasien', $id_pasien)->update($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'Update successfuly',
             ];
-        }else{
-            $response =[
+        } else {
+            $response = [
                 'status' => 'error',
                 'message' => 'errorfuly',
             ];
@@ -225,12 +224,12 @@ class PasienController extends BaseController
     {
         $id_pasien = $this->request->getPost('id_pasien');
         $query = $this->db->table('pasien')->where('id_pasien', $id_pasien)->delete();
-        if($query) {
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'Successfully !'
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Error !',
@@ -252,8 +251,8 @@ class PasienController extends BaseController
         $pasien_id = $datapasien->id;
         $userid = $this->UserInfo->id;
         $unit_id = $this->UserInfo->unit_id;
-        
-        if(empty($dataantrian)){
+
+        if (empty($dataantrian)) {
             $data = [
                 'no_antrian' => $no_kunjungan,
                 'pasien_id' => $pasien_id,
@@ -266,20 +265,20 @@ class PasienController extends BaseController
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
-    
+
             $query = $this->db->table('antrian_kunjungan')->insert($data);
-            if($query){
+            if ($query) {
                 $response = [
                     'status' => 'success',
                     'message' => 'successfully !',
                 ];
-            }else{
+            } else {
                 $response  = [
                     'status' => 'error',
                     'message' => 'Error ! ',
                 ];
             }
-        }else{
+        } else {
             $response  = [
                 'status' => 'anyway',
                 'message' => 'Data Sudah Dimasukkan Ke Antrian ! ',
@@ -287,5 +286,4 @@ class PasienController extends BaseController
         }
         return json_encode($response);
     }
-
 }
