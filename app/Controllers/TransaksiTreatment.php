@@ -430,6 +430,7 @@ class TransaksiTreatment extends BaseController
         $value_row = $this->db->table("transaksi_treatment")->where("transaksi_id", $no_trans)->get()->getRowObject();
         $value_treat = $this->db->table("transaksi_treatment_detail")->where("transaksi_id", $no_trans)->get()->getResult();
         $value_prod = $this->db->table("transaksi_treatment_detail_prod")->where("transaksi_id", $no_trans)->get()->getResult();
+        $profile = $this->db->table("profile")->get()->getFirstRow();
         function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4)
         {
             // Mengatur lebar setiap kolom (dalam satuan karakter)
@@ -474,7 +475,7 @@ class TransaksiTreatment extends BaseController
             // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
             return implode($hasilBaris) . "\n";
         }
-        $img = EscposImage::load("assets/images/paid.png");
+        $img = EscposImage::load("upload/" . $profile->file);
         $imgModes = [
             Printer::IMG_DEFAULT,
             Printer::IMG_DOUBLE_WIDTH,
@@ -483,10 +484,12 @@ class TransaksiTreatment extends BaseController
         ];
         // Membuat judul
         $printer->initialize();
-        $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
+        // $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
         $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
         $printer->bitImageColumnFormat($img, 0);
-        $printer->text("Nama Toko\n");
+        $printer->text("" . $profile->nama . "\n");
+        $printer->text("Alamat : " . $profile->alamat . "\n");
+        $printer->text("No.Telepon Kantor : " . $profile->no_hp . "\n");
         $printer->text("\n");
 
         // Data transaksi
@@ -523,9 +526,9 @@ class TransaksiTreatment extends BaseController
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Terima kasih telah berbelanja\n");
-        $printer->text("http://badar-blog.blogspot.com\n");
+        $printer->text("https://winnyputrilubis.id/\n");
         $printer->feed(1);
-        $printer->qrCode("19349284", Printer::QR_ECLEVEL_Q, '8');
+        $printer->qrCode("https://winnyputrilubis.id", Printer::QR_ECLEVEL_Q, '8');
         $printer->setJustification();
         $printer->feed(2); // mencetak 5 baris kosong agar terangkat (pemotong kertas saya memiliki jarak 5 baris dari toner)
         $printer->close();

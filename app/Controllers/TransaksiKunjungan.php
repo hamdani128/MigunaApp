@@ -206,10 +206,10 @@ class TransaksiKunjungan extends BaseController
             $datatreat = [
                 'kode' => $row->kode,
                 'treatment' => $row->treatment,
-                'harga' => $row->harga,
-                'qty' => $row->qty,
-                'subtotal' => $row->subtotal,
-                'potongan' => $row->potongan,
+                'harga' => str_replace(",", ".", number_format($row->harga, 0)),
+                'qty' => str_replace(",", ".", number_format($row->qty, 0)),
+                'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
+                'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
             ];
             $treat[] = $datatreat;
         }
@@ -217,10 +217,11 @@ class TransaksiKunjungan extends BaseController
             $dataprod = [
                 'kode' => $row->kode,
                 'nama' => $row->nama,
-                'harga' => $row->harga,
-                'qty' => $row->qty,
-                'subtotal' => $row->subtotal,
-                'potongan' => $row->potongan,
+                'satuan' => $row->satuan,
+                'harga' => str_replace(",", ".", number_format($row->harga, 0)),
+                'qty' => str_replace(",", ".", number_format($row->qty, 0)),
+                'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
+                'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
             ];
             $prod[] = $dataprod;
         }

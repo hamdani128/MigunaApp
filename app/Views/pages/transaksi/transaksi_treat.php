@@ -598,7 +598,11 @@
                     <div class="col-lg-12">
                         <button class="btn btn-xl btn-success" onclick="simpan_transaksi()">
                             <i class="fa fa-save"></i>
-                            Simpan
+                            <span class="hide-text">Simpan</span>
+                            <div class="spinner" style="display: none;"><i role="status"
+                                    class="spinner-border spinner-border-sm spinner-border-custom-4 text-white"></i>
+                                Loading..
+                            </div>
                         </button>
                         <button class="btn btn-xl btn-dark">
                             <i class="fa fa-print"></i>

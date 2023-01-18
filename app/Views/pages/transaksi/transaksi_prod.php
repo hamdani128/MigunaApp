@@ -125,7 +125,8 @@
                                                         onclick="list_invoice_product('<?= $row->no_transaksi; ?>')">
                                                         <i class="fa fa-list"></i>
                                                     </button>
-                                                    <button class="btn btn-md btn-success">
+                                                    <button class="btn btn-md btn-success"
+                                                        onclick="cetak_invoice_prodcut('<?= $row->no_transaksi; ?>')">
                                                         <i class="fa fa-print"></i>
                                                     </button>
                                                 </div>
@@ -463,7 +464,11 @@
                     <div class="col-lg-12">
                         <button class="btn btn-info btn-md" onclick="simpan_transaksi_product()">
                             <i class="fa fa-save"></i>
-                            Simpan Transaksi
+                            <span class="hide-text">Simpan Transaksi</span>
+                            <div class="spinner" style="display: none;"><i role="status"
+                                    class="spinner-border spinner-border-sm spinner-border-custom-4 text-white"></i>
+                                Loading..
+                            </div>
                         </button>
                     </div>
                 </div>

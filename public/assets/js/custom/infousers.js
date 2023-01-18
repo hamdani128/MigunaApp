@@ -9,6 +9,7 @@ function simpan_akun_user() {
     var password = $('#password').val();
     var confirm_password = $('#confirm_password').val();
     var cmb_unit = document.getElementById("unit_cabang").value;
+    var cmb_level = document.getElementById("level").value;
 
     if (fullname == '' || username == '' || email == '' || password == '' || confirm_password == '' || cmb_unit == '') {
         swal.fire(
@@ -30,6 +31,7 @@ function simpan_akun_user() {
                 password: password,
                 confirm_password: confirm_password,
                 unit_id: cmb_unit,
+                level: cmb_level,
             },
             dataType: "json",
             success: function (data) {

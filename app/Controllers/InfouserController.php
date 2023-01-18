@@ -7,8 +7,8 @@ use CodeIgniter\Database\Config;
 
 class InfouserController extends BaseController
 {
-    private $db,$UserInfo;
-    
+    private $db, $UserInfo;
+
     public function __construct()
     {
         $this->db = Config::connect();
@@ -27,7 +27,7 @@ class InfouserController extends BaseController
                 a.created_at as created_at
                 FROM users a
                 LEFT JOIN unit b ON a.unit_id = b.id
-                WHERE a.level = 'Admin Cabang'
+                WHERE a.level NOT IN ('Super Admin', 'Admin')
                 GROUP BY 1,2,3,4,5,6";
         $cabang = $this->db->table('unit')->select('id, unit')->get()->getResultObject();
         $datauser = $this->db->query($SQL1)->getResultObject();
@@ -46,22 +46,23 @@ class InfouserController extends BaseController
         $now = date('Y-m-d H:i:s');
         $fullname = $this->request->getPost('fullname');
         $username = $this->request->getPost('username');
-        $email= $this->request->getPost('email');
+        $email = $this->request->getPost('email');
         $confirm_password = $this->request->getPost('confirm_password');
         $unit_id = $this->request->getPost('unit_id');
+        $level = $this->request->getPost('level');
 
         $data1 = [
             'fullname' => $fullname,
             'username' => $username,
             'email' => $email,
             'password' => md5($confirm_password),
-            'level'=> 'Admin Cabang',
+            'level' => $level,
             'unit_id' => $unit_id,
             'created_at' => $now,
             'updated_at' => $now,
         ];
 
-        $data2 =[
+        $data2 = [
             'username' => $username,
             'password' => $confirm_password,
             'created_at' => $now,
@@ -70,12 +71,12 @@ class InfouserController extends BaseController
         $query1 = $this->db->table('users')->insert($data1);
         $query2 = $this->db->table('users_password')->insert($data2);
 
-        if($query1 && $query2){
+        if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
                 'message' => 'data successfully'
             ];
-        }else {
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'data not found',
@@ -120,7 +121,7 @@ class InfouserController extends BaseController
         $id = $this->request->getPost('id');
         $fullname = $this->request->getPost('fullname');
         $username = $this->request->getPost('username');
-        $email= $this->request->getPost('email');
+        $email = $this->request->getPost('email');
         $confirm_password = $this->request->getPost('confirm_password');
         $unit_id = $this->request->getPost('unit_id');
 
@@ -129,13 +130,13 @@ class InfouserController extends BaseController
             'username' => $username,
             'email' => $email,
             'password' => md5($confirm_password),
-            'level'=> 'Admin Cabang',
+            'level' => 'Admin Cabang',
             'unit_id' => $unit_id,
             'created_at' => $now,
             'updated_at' => $now,
         ];
 
-        $data2 =[
+        $data2 = [
             'username' => $username,
             'password' => $confirm_password,
             'created_at' => $now,
@@ -144,12 +145,12 @@ class InfouserController extends BaseController
         $query1 = $this->db->table('users')->where('id', $id)->update($data1);
         $query2 = $this->db->table('users_password')->insert($data2);
 
-        if($query1 && $query2){
+        if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
                 'message' => 'data successfully'
             ];
-        }else {
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'data not found',
@@ -164,12 +165,12 @@ class InfouserController extends BaseController
         $datauser = $this->db->table('users')->where('id', $id)->get()->getRowObject();
         $query1 = $this->db->table('users_password')->where("username", $datauser->username)->delete();
         $query2 = $this->db->table('users')->where('id', $id)->delete();
-        if($query1 && $query2){
+        if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
                 'message' => 'data successfully'
             ];
-        }else {
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'data not found',
@@ -193,10 +194,9 @@ class InfouserController extends BaseController
                 WHERE a.username = '" . $datauser->username . "'
                 GROUP BY 1,2,3,4,5";
         $uqery = $this->db->query($sql)->getResultObject();
-        foreach ($uqery as $row){
+        foreach ($uqery as $row) {
             $data[] = $row;
         }
         return json_encode($data);
-    }   
-
+    }
 }

@@ -52,8 +52,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if(count($datauser) > 0){ $no=1; ?>
-                                        <?php foreach($datauser as $row) : ?>
+                                        <?php if (count($datauser) > 0) {
+                                            $no = 1; ?>
+                                        <?php foreach ($datauser as $row) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td>
@@ -80,7 +81,7 @@
                                             <td><?= $row->created_at; ?></td>
                                         </tr>
                                         <?php endforeach; ?>
-                                        <?php }else{ ?>
+                                        <?php } else { ?>
                                         <?php } ?>
                                     </tbody>
                                 </table>
@@ -138,6 +139,14 @@
                                 <?php foreach ($cabang as $row) : ?>
                                 <option value="<?= $row->id; ?>"><?= $row->unit; ?></option>
                                 <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Level User</label>
+                            <select name="level" id="level" class="form-control">
+                                <option value="">Pilih Level</option>
+                                <option value="Dokter">Dokter</option>
+                                <option value="Admin Cabang">Admin Cabang</option>
                             </select>
                         </div>
                     </div>

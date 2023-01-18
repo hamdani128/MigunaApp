@@ -141,7 +141,7 @@ class PasienController extends BaseController
             foreach ($query as $row) {
                 $data = [
                     'no' => $no,
-                    'action' => "<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_pasien()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_pasien()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='antrian_pasien_admin()'><i class='fas fa-user-friends'></i></button><button class='btn btn-md btn-success'><i class='fas fa-id-card'></i></button></div>",
+                    'action' => "<div class='button-group'><button class='btn btn-md btn-info' onclick='edit_admin_pasien()'><i class='fa fa-edit'></i></button><button class='btn btn-md btn-danger' onclick='delete_admin_pasien()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='antrian_pasien_admin()'><i class='fas fa-user-friends'></i></button><button class='btn btn-md btn-success' onclick='riwayat_transaksi_kunjungan_pasien()'><i class='fas fa-id-card'></i></button></div>",
                     'id_pasien' => $row->id_pasien,
                     'nik' => $row->nik,
                     'nama' => $row->nama,

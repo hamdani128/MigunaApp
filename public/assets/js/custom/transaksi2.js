@@ -419,6 +419,9 @@ $('#nominal_bayar_product').on('keyup', function (e) {
 });
 
 function simpan_transaksi_product() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
     var cmb_metode_bayar = document.getElementById("cmb_metode_bayar");
     var cmb_metode_bayar_value = cmb_metode_bayar.options[cmb_metode_bayar.selectedIndex].value;
     if (cmb_metode_bayar_value == 'Cash') {
@@ -504,6 +507,32 @@ function delete_transaksi_product(no_transaksi) {
                         )
                         document.location.reload();
                     }
+                }
+            });
+        }
+    });
+}
+
+function cetak_invoice_prodcut(no_transaksi) {
+    Swal.fire({
+        title: 'Yakin Apakan Anda ingin Mencetak Data Transaksi ' + no_transaksi + ' ini ?',
+        text: "Data Transaksi Akan Dicetak !",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Cetak !',
+        cancelButtonText: 'Tidak'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: "/transaksi/product/invoice",
+                type: "GET",
+                data: {
+                    no_transaksi: no_transaksi
+                },
+                // dataType: "json",
+                success: function (data) {
                 }
             });
         }

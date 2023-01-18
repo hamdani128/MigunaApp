@@ -198,6 +198,9 @@ function diagnosa_pasien_dokter() {
 
 
 function simpan_diagnosa() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
     var no_antrian = document.getElementById("no_antrian").innerHTML;
     var id_pasien = document.getElementById("id_pasien").innerHTML;
     var nama_pasien = document.getElementById("nama_pasien").innerHTML;
@@ -647,6 +650,9 @@ $("#nominal_bayar").keyup(function (event) {
 // Simpan Transaksi
 
 function simpan_transaksi() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
     var transaksi_id = document.getElementById("id_transaksi").innerHTML;
     var cmb_no_antrian = document.getElementById("cmb_antrian");
     var cmb_no_antrian_value = cmb_no_antrian.options[cmb_no_antrian.selectedIndex].value;
@@ -867,7 +873,6 @@ function cetak_struk(no_transaksi) {
             });
         }
     });
-
 }
 
 function list_transaksi(transaksi_id, datenow) {

@@ -123,6 +123,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/transaksi/product/pay_cash', 'TransaksiProduct::pay_cash');
     $routes->post('/transaksi/product/list_transaksi', 'TransaksiProduct::list_transaksi');
     $routes->post('/transaksi/product/delete', 'TransaksiProduct::delete');
+    $routes->get('/transaksi/product/invoice', 'TransaksiProduct::invoice');
 
     // info users
     $routes->get('/infousers', 'InfouserController::index');

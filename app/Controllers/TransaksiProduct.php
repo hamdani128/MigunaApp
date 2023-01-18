@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
+use Mike42\Escpos\EscposImage;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
 
 class TransaksiProduct extends BaseController
 {
@@ -319,5 +322,110 @@ class TransaksiProduct extends BaseController
             ];
         }
         return json_encode($response);
+    }
+
+    public function invoice()
+    {
+        $connector = new WindowsPrintConnector("ZJ-58");
+        $printer = new Printer($connector);
+        $no_trans = $_GET['no_transaksi'];
+        $value_row = $this->db->table("transaksi_produk")->where("no_transaksi", $no_trans)->get()->getRowObject();
+        $value_prod = $this->db->table("transaksi_produk_detail")->where("no_transaksi", $no_trans)->get()->getResult();
+        $profile = $this->db->table("profile")->get()->getFirstRow();
+        function buatBaris4Kolom($kolom1, $kolom2, $kolom3, $kolom4)
+        {
+            // Mengatur lebar setiap kolom (dalam satuan karakter)
+            $lebar_kolom_1 = 13;
+            $lebar_kolom_2 = 3;
+            $lebar_kolom_3 = 8;
+            $lebar_kolom_4 = 12;
+
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
+            $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+            $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+            $kolom4 = wordwrap($kolom4, $lebar_kolom_4, "\n", true);
+
+            // Merubah hasil wordwrap menjadi array, kolom yang memiliki 2 index array berarti memiliki 2 baris (kena wordwrap)
+            $kolom1Array = explode("\n", $kolom1);
+            $kolom2Array = explode("\n", $kolom2);
+            $kolom3Array = explode("\n", $kolom3);
+            $kolom4Array = explode("\n", $kolom4);
+
+            // Mengambil jumlah baris terbanyak dari kolom-kolom untuk dijadikan titik akhir perulangan
+            $jmlBarisTerbanyak = max(count($kolom1Array), count($kolom2Array), count($kolom3Array), count($kolom4Array));
+
+            // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
+            // $hasilBaris = ;
+
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+
+                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+                $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
+                $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
+
+                // memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga
+                $hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+                $hasilKolom4 = str_pad((isset($kolom4Array[$i]) ? $kolom4Array[$i] : ""), $lebar_kolom_4, " ", STR_PAD_LEFT);
+
+                // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
+                $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3 . " " . $hasilKolom4;
+            }
+
+            // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
+            return implode($hasilBaris) . "\n";
+        }
+        $img = EscposImage::load("upload/" . $profile->file);
+        $imgModes = [
+            Printer::IMG_DEFAULT,
+            Printer::IMG_DOUBLE_WIDTH,
+            Printer::IMG_DOUBLE_HEIGHT,
+            Printer::IMG_DOUBLE_WIDTH | Printer::IMG_DOUBLE_HEIGHT
+        ];
+        // Membuat judul
+        $printer->initialize();
+        // $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
+        $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
+        $printer->bitImageColumnFormat($img, 0);
+        $printer->text("" . $profile->nama . "\n");
+        $printer->text("Alamat : " . $profile->alamat . "\n");
+        $printer->text("No.Telepon Kantor : " . $profile->no_hp . "\n");
+        $printer->text("\n");
+
+        // Data transaksi
+        $printer->initialize();
+        $printer->text("No.Invoice : " . $no_trans . "\n");
+        $printer->text("Kasir : " . $this->UserInfo->fullname . "\n");
+        $printer->text("Waktu : " . $value_row->created_at . "\n");
+        $printer->text("Metode  : " . $value_row->metode_bayar . "\n");
+        // Membuat tabel
+        $printer->initialize(); // Reset bentuk/jenis teks
+        $printer->text("--------------------------------\n");
+        $printer->text(buatBaris4Kolom("Item", "qty", "Subs", "Pot"));
+        $printer->text("--------------------------------\n");
+        foreach ($value_prod as $row) {
+            $printer->text(buatBaris4Kolom($row->nama, $row->qty, number_format($row->subtotal, 0), number_format($row->potongan, 0)));
+            // $printer->text(buatBaris4Kolom("Telur", "2", "5.000", "10.000"));
+            // $printer->text(buatBaris4Kolom("Tepung terigu", "1", "8.200", "16.400"));
+        }
+        $printer->text("--------------------------------\n");
+        // $printer->text(buatBaris4Kolom("Total", "56.400", '', ''));
+        $printer->text("Subtotal : " . number_format($value_row->subtotal, 0) . "\n");
+        $printer->text("Potongan : " . number_format($value_row->potongan, 0) . "\n");
+        $printer->text("Jumlah Dibayar : " . number_format($value_row->dibayar, 0) . "\n");
+        $printer->text("Kembalian : " . number_format($value_row->kembalian, 0) . "\n");
+        $printer->text("\n");
+
+        // Pesan penutup
+        $printer->initialize();
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->text("Terima kasih telah berbelanja\n");
+        $printer->text("https://winnyputrilubis.id/\n");
+        $printer->feed(1);
+        $printer->qrCode("https://winnyputrilubis.id", Printer::QR_ECLEVEL_Q, '8');
+        $printer->setJustification();
+        $printer->feed(2); // mencetak 5 baris kosong agar terangkat (pemotong kertas saya memiliki jarak 5 baris dari toner)
+        $printer->close();
     }
 }

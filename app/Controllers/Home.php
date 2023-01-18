@@ -6,7 +6,7 @@ use CodeIgniter\Database\Config;
 
 class Home extends BaseController
 {
-    private $db,$UserInfo;
+    private $db, $UserInfo;
     public function __construct()
     {
         $this->db = Config::connect();
@@ -15,10 +15,20 @@ class Home extends BaseController
 
     public function index()
     {
-        $data = [
-            'title' => 'App Miguna - Home',
-            'userinfo' => $this->UserInfo,
-        ];
-        return view('pages/index', $data);
+        if ($this->UserInfo->level == "Admin") {
+            $data = [
+                'title' => 'App Miguna - Home',
+                'userinfo' => $this->UserInfo,
+            ];
+            return view('pages/home/home_admin', $data);
+        } else {
+            $profile = $this->db->table("profile")->get()->getFirstRow();
+            $data = [
+                'title' => 'App Miguna - Home',
+                'userinfo' => $this->UserInfo,
+                'profile' => $profile,
+            ];
+            return view('pages/home/home_admin_cabang', $data);
+        }
     }
 }

@@ -152,7 +152,6 @@ function check_riwayat_tanggal() {
                             <td>${data.treatment_detail[i].qty}</td>
                             <td>${data.treatment_detail[i].subtotal}</td>
                             <td>${data.treatment_detail[i].potongan}</td>
-                            <td>${data.treatment_detail[i].desc}</td>
                         </tr>`;
                         }
                         tbody1.innerHTML = tr1;
@@ -163,11 +162,11 @@ function check_riwayat_tanggal() {
                             tr2 += `<tr>
                         <td align="center">${data.product_detail[i].kode}</td>
                         <td>${data.product_detail[i].nama}</td>
+                        <td>${data.product_detail[i].satuan}</td>
                         <td>${data.product_detail[i].harga}</td>
                         <td>${data.product_detail[i].qty}</td>
                         <td>${data.product_detail[i].subtotal}</td>
                         <td>${data.product_detail[i].potongan}</td>
-                        <td>${data.product_detail[i].desc}</td>
                         </tr>`;
                         }
                         tbody2.innerHTML = tr2;

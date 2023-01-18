@@ -204,7 +204,10 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-info" onclick="simpan_diagnosa()">
                     <i class="fa fa-save"></i>
-                    Simpan Data
+                    <span class="hide-text">Simpan</span>
+                    <div class="spinner" style="display: none;"><i role="status"
+                            class="spinner-border spinner-border-sm spinner-border-custom-4 text-white"></i> Loading..
+                    </div>
                 </button>
             </div>
         </div>
@@ -274,7 +277,6 @@
                                                         <th>Qty</th>
                                                         <th>Subtotal</th>
                                                         <th>Potongan</th>
-                                                        <th>Description</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody-list-treat-riw">
@@ -305,7 +307,6 @@
                                                         <th>Qty</th>
                                                         <th>Subtotal</th>
                                                         <th>Potongan</th>
-                                                        <th>Deskripsi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody-list-prod-riw">

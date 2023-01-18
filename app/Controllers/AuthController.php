@@ -9,7 +9,8 @@ use CodeIgniter\Database\Database;
 class AuthController extends BaseController
 {
     private $db;
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = Config::connect();
     }
 
@@ -24,14 +25,14 @@ class AuthController extends BaseController
         $password = $this->request->getPost('password');
         $UserInfo = $this->db->table('users')->where('username', $username)->get()->getRowObject();
         $hashmd5 = md5($password);
-        if(empty($UserInfo->username)){
+        if (empty($UserInfo->username)) {
             $response = [
                 'status' => 'username not found',
                 'message' => 'Username Anda Tidak Terdaftar !',
             ];
             return json_encode($response);
-        }else{
-            if($UserInfo->password == $hashmd5){
+        } else {
+            if ($UserInfo->password == $hashmd5) {
                 $user_id = $UserInfo->id;
                 session()->set('loggedUser', $user_id);
                 $response = [
@@ -39,7 +40,7 @@ class AuthController extends BaseController
                     'message' => 'Anda Berhasil Login !',
                 ];
                 return json_encode($response);
-            }else{
+            } else {
                 $response = [
                     'status' => 'Password Error',
                     'message' => 'Password Anda Salah !',
@@ -56,7 +57,5 @@ class AuthController extends BaseController
             session()->remove('loggedUser');
             return redirect()->to('/auth/login')->with('logout', 'You Are logged Out');
         }
-
     }
-
 }
