@@ -23,6 +23,8 @@
                 <li><a href="/sdm"><span>Info SDM</span></a></li>
             </ul>
         </li>
+        <?php } ?>
+        <?php if ($userinfo->level == "Dokter") { ?>
         <li>
             <a href="javascript: void(0);"><i class="mdi mdi-account-heart">
                 </i>
@@ -34,6 +36,8 @@
                 <li><a href="/transaksi/kunjungan">Diagnosa</a></li>
             </ul>
         </li>
+        <?php } ?>
+        <?php if ($userinfo->level == "Admin Cabang") { ?>
         <li>
             <a href="javascript: void(0);"><i class="mdi mdi-sale">
                 </i>

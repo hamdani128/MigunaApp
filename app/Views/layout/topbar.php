@@ -6,12 +6,10 @@
         <div class="topbar-left">
             <a href="/" class="logo">
                 <span>
-                    <img src="<?= base_url() ?>/assets/images/miguna.jpg" alt="logo-small" class="logo-sm">
+                    <img src="<?= base_url() ?>/assets/images/Logo-Primary.png" alt="logo-small" class="logo-sm">
                 </span>
-                <span class="logo_name">MIGUNA
-                    APP CLINIC</span>
                 <!-- <span>
-                    <img src="<?= base_url() ?>/assets/images/miguna.jpg" alt="logo-large" class="logo-lg">
+                    <img src="<?= base_url() ?>/assets/images/icon.png" alt="logo-large" class="logo-lg">
                 </span> -->
             </a>
         </div>

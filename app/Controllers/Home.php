@@ -21,7 +21,15 @@ class Home extends BaseController
                 'userinfo' => $this->UserInfo,
             ];
             return view('pages/home/home_admin', $data);
-        } else {
+        } elseif ($this->UserInfo->level == "Dokter") {
+            $profile = $this->db->table("profile")->get()->getFirstRow();
+            $data = [
+                'title' => 'App Miguna - Home',
+                'userinfo' => $this->UserInfo,
+                'profile' => $profile,
+            ];
+            return view('pages/home/home_dokter', $data);
+        } elseif ($this->UserInfo->level == "Admin Cabang") {
             $profile = $this->db->table("profile")->get()->getFirstRow();
             $data = [
                 'title' => 'App Miguna - Home',

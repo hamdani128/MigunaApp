@@ -18,7 +18,7 @@ class TransaksiKunjungan extends BaseController
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
-        if ($this->UserInfo->level == 'Admin Cabang') {
+        if ($this->UserInfo->level == 'Dokter' || $this->UserInfo->level == 'Admin' || $this->UserInfo->level == 'Super Admin') {
             $sdm = $this->db->table('sdm')->get()->getResultObject();
             $kunjungan = $this->db->table('antrian_kunjungan')->where('tanggal', date('Y-m-d'))->where('unit_id', $this->UserInfo->unit_id)->countAllResults();
             $selesai_diagnosa = $this->db->table('antrian_kunjungan')->where('status', 'antrian')->where('tanggal', date('Y-m-d'))->where('unit_id', $this->UserInfo->unit_id)->countAllResults();
@@ -38,7 +38,7 @@ class TransaksiKunjungan extends BaseController
 
     public function getdata()
     {
-        if ($this->UserInfo->level == 'Admin Cabang' || $this->UserInfo->level == 'Dokter Cabang') {
+        if ($this->UserInfo->level == 'Admin Cabang' || $this->UserInfo->level == 'Dokter') {
             date_default_timezone_set('Asia/Jakarta');
             $now = date('Y-m-d');
             $unit_id = $this->UserInfo->unit_id;

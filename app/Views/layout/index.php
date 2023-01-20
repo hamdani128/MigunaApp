@@ -9,7 +9,9 @@
     <meta content="Mannatthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/miguna.jpg">
+    <!-- <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/miguna.jpg"> -->
+    <link rel="shortcut icon" href="<?= base_url() ?>/assets/images/icon.png">
+
     <link href="<?= base_url() ?>/assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
 
     <!-- DataTables -->

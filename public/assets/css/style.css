@@ -1003,7 +1003,7 @@ small {
 }
 
 .topbar .topbar-left .logo .logo-sm {
-    height: 24px;
+    height: 60px;
 }
 
 .topbar .topbar-left .logo .logo-lg {
@@ -1216,8 +1216,11 @@ small {
     .topbar .topbar-left {
         width: 18px;
     }
-    .topbar .topbar-left .logo-lg {
+    .topbar .topbar-left .logo-sm {
         display: none;
+    }
+    .topbar .topbar-left .logo .logo-lg {
+        display: block;
     }
     .page-wrapper-img {
         padding: 0;
