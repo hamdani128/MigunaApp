@@ -313,3 +313,39 @@ function riwayat_transaksi_kunjungan_pasien() {
         currentRow.onclick = createClickHandler(currentRow);
     }
 }
+
+
+function download_format_pasien() {
+    document.location.href = "/pasien/admin/download";
+}
+
+function import_data_pasien() {
+    $("#my-modal-import").modal("show");
+}
+
+function simpan_data_import_pasien() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
+    let formData = new FormData(document.getElementById('import_data_pasien'));
+    $.ajax({
+        url: "/pasien/admin/import_data_guru",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Diimport !',
+                });
+                document.location.reload();
+            }
+        },
+    });
+}

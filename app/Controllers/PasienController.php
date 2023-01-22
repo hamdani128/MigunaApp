@@ -5,14 +5,18 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
 use CodeIgniter\Entity\Cast\JsonCast;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class PasienController extends BaseController
 {
-    private $db, $UserInfo;
+    private $db, $UserInfo, $timenow;
     public function __construct()
     {
+        date_default_timezone_set('Asia/jakarta');
         $this->db = Config::connect();
         $this->UserInfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
+        $this->timenow = date('Y-m-d H:i:s');
     }
 
     public function GetIDPasienCabang($unit_id, $registri)
@@ -282,6 +286,60 @@ class PasienController extends BaseController
             $response  = [
                 'status' => 'anyway',
                 'message' => 'Data Sudah Dimasukkan Ke Antrian ! ',
+            ];
+        }
+        return json_encode($response);
+    }
+
+    public function admin_download()
+    {
+        return $this->response->download('source/pasien.xlsx', null);
+    }
+
+    public function import_data_guru()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $user_id = $this->UserInfo->id;
+        $unit_id = $this->UserInfo->unit_id;
+        $berkas = $this->request->getFile("file_pasien");
+        $ext = $berkas->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new Xls();
+        } else {
+            $render = new Xlsx();
+        }
+        $preadsheet = $render->load($berkas);
+        $data = $preadsheet->getActiveSheet()->toArray();
+        foreach ($data as $x => $row) {
+            if ($x == 0) {
+                continue;
+            }
+            $data = [
+                'id_pasien' => $row[0],
+                'nik' => $row[1],
+                'nama' => $row[2],
+                'usia' => $row[3],
+                'alamat' => $row[4],
+                'jk' => $row[5],
+                'pekerjaan' => $row[6],
+                'hp' => $row[7],
+                'registri' => $row[8],
+                'unit_id' => $unit_id,
+                'user_id' => $user_id,
+                'created_at' => $this->timenow,
+                'updated_at' => $this->timenow
+            ];
+            $query1 = $this->db->table("pasien")->insert($data);
+        }
+        if ($query1) {
+            $response = [
+                'status' => 'success',
+                'message' => 'success'
+            ];
+        } else {
+            $response = [
+                'status' => 'failed',
+                'message' => 'failed'
             ];
         }
         return json_encode($response);

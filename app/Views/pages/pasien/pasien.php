@@ -26,16 +26,28 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-lg-2">
-                            <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#my-modal">
-                                <i class="fa fa-plus"></i>
-                                Tambah
-                            </button>
-                        </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-9">
+                            <div class="button-group">
+                                <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#my-modal">
+                                    <i class="fa fa-plus"></i>
+                                    Tambah
+                                </button>
+                                <button class="btn btn-md btn-dark" onclick="download_format_pasien()">
+                                    <i class="far fa-file-alt"></i>
+                                    Download Format
+                                </button>
+                                <button class="btn btn-md btn-success" onclick="import_data_pasien()">
+                                    <i class="fas fa-database"></i>
+                                    Import Data
+                                </button>
+                                <button class="btn btn-md btn-primary">
+                                    <i class="far fa-file-excel"></i>
+                                    Export Data
+                                </button>
+                            </div>
 
                         </div>
-                        <div class="col-lg-5 text-right">
+                        <div class="col-lg-3 text-right">
                             <div class="form-group">
                                 <div class="input-group">
                                     <input type="date" name="" id="" class="form-control">
@@ -457,6 +469,51 @@
             </div>
             <div class="modal-footer">
                 Footer
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Import Data -->
+<div id="my-modal-import" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-white" id="my-modal-title">File Import Pasien</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="#" method="post" id="import_data_pasien">
+                            <div class="form-group">
+                                <input type="file" id="input-file-now file_pasien" name="file_pasien" class="dropify" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-md btn-light" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-minus-circle"></i>
+                            Batal
+                        </button>
+                        <button class="btn btn-md btn-success button-prevent" onclick="simpan_data_import_pasien()">
+                            <i class="fas fa-save hide-text"></i>
+                            <span class="hide-text">Import Data</span>
+                            <div class="spinner" style="display: none;"><i role="status"
+                                    class="spinner-border spinner-border-sm spinner-border-custom-4 text-white"></i>
+                                Loading..
+                            </div>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

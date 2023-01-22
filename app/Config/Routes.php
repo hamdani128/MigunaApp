@@ -49,12 +49,12 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/pasien/admin/update', 'PasienController::admin_update');
     $routes->post('/pasien/admin/delete', 'PasienController::admin_delete');
     $routes->post('/pasien/admin/antrian_kunjungan', 'PasienController::admin_antrian_kunjungan');
-
+    $routes->get('/pasien/admin/download', 'PasienController::admin_download');
+    $routes->post('/pasien/admin/import_data_guru', 'PasienController::import_data_guru');
     // Kunjungan
     $routes->get('/kunjungan', 'RiwayatController::index');
     $routes->get('/kunjungan/admin_getdata', 'RiwayatController::admin_getdata');
     $routes->post('/kunjungan/delete', 'RiwayatController::admin_delete');
-
     // Product
     $routes->get('/product', 'ProductController::index');
     $routes->get('/product/getdata', 'ProductController::product_getdata');
