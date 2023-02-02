@@ -391,3 +391,73 @@ function delete_admin_product() {
         currentRow.onclick = createClickHandler(currentRow);
     }
 }
+
+function download_format_product() {
+    document.location.href = '/product/download';
+}
+
+function import_data_product() {
+    $("#my-modal-import-product").modal('show');
+}
+
+function simpan_data_import_product() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
+    let formData = new FormData(document.getElementById('import_data_product'));
+    $.ajax({
+        url: "/product/import_data_product",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Diimport !',
+                });
+                document.location.reload();
+            }
+        },
+    });
+}
+
+function download_format_supplier() {
+    document.location.href = '/supplier/download';
+}
+
+function import_data_supplier() {
+    $("#my-modal-import-supplier").modal('show');
+}
+
+function simpan_data_import_supplier() {
+    $('.button-prevent').attr('disabled', 'true');
+    $('.spinner').show();
+    $('.hide-text').hide();
+    let formData = new FormData(document.getElementById('import_data_supplier'));
+    $.ajax({
+        url: "/supplier/import_data_supplier",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Diimport !',
+                });
+                document.location.reload();
+            }
+        },
+    });
+}

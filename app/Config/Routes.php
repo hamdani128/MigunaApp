@@ -55,6 +55,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('/kunjungan', 'RiwayatController::index');
     $routes->get('/kunjungan/admin_getdata', 'RiwayatController::admin_getdata');
     $routes->post('/kunjungan/delete', 'RiwayatController::admin_delete');
+    $routes->get('/kunjungan/filter_getdata/(:any)/(:any)', 'RiwayatController::filter_getdata/$1/$2');
     // Product
     $routes->get('/product', 'ProductController::index');
     $routes->get('/product/getdata', 'ProductController::product_getdata');
@@ -62,12 +63,18 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/product/edit_show', 'ProductController::product_edit_show');
     $routes->post('/product/update', 'ProductController::product_update');
     $routes->post('/product/delete', 'ProductController::product_delete');
+    $routes->get('/product/download', 'ProductController::product_download');
+    $routes->post('/product/import_data_product', 'ProductController::import_data_product');
+
     // supplier
     $routes->post('/product/supplier/insert', 'ProductController::supplier_add');
     $routes->get('/product/supplier/getdata', 'ProductController::supplier_getdata');
     $routes->post('/product/supplier/edit_show', 'ProductController::supplier_edit_show');
     $routes->post('/product/supplier/update_data_supplier', 'ProductController::supplier_update_data');
     $routes->post('/product/supplier/delete', 'ProductController::supplier_delete');
+    $routes->get('/supplier/download', 'ProductController::download_format_supplier');
+    $routes->post('/supplier/import_data_supplier', 'ProductController::import_data_supplier');
+
     // SDM
     $routes->get('/sdm', 'SDMController::index');
     $routes->get('/sdm/getdata', 'SDMController::getdata');
@@ -83,6 +90,8 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/treatment/admin/edit_show', 'TreatmentController::admin_edit_show');
     $routes->post('/treatment/admin/update', 'TreatmentController::admin_update');
     $routes->post('/treatment/admin/delete', 'TreatmentController::admin_delete');
+    $routes->get('/treatment/download_format', 'TreatmentController::download_format');
+    $routes->post('/treatment/import_data', 'TreatmentController::import_data');
 
     // Lokasi cabang 
     $routes->get('/lokasi', 'LokasiController::index');

@@ -102,4 +102,62 @@ class RiwayatController extends BaseController
         }
         return json_encode($response);
     }
+
+    public function filter_getdata($mulai, $sampai)
+    {
+
+        $unit_id = $this->UserInfo->unit_id;
+        $SQL = "SELECT
+                a.id as id,
+                a.no_antrian as no_antrian,
+                a.id_pasien as id_pasien,
+                b.nama as nama,
+                a.catatan_kunjungan as catatan_kunjungan,
+                a.status as status,
+                a.tanggal as tanggal,
+                a.created_at as created_at
+                FROM antrian_kunjungan a 
+                LEFT JOIN pasien b ON a.id_pasien = b.id_pasien 
+                WHERE a.unit_id='" . $unit_id . "' AND a.tanggal BETWEEN '" . $mulai . "' AND '" . $sampai . "' 
+                ORDER BY a.tanggal DESC";
+        $query = $this->db->query($SQL)->getResultObject();
+        $no = 1;
+        if (!empty($query)) {
+            foreach ($query as $row) {
+                if ($row->status == 'antrian') {
+                    $status = "<h5 class='badge badge-boxed  badge-soft-warning'>" . $row->status . "</h5>";
+                } else {
+                    $status = "<h5 class='badge badge-boxed  badge-soft-info'>" . $row->status . "</h5>";
+                }
+                $data = [
+                    'no' => $no,
+                    'action' => "<div class='button-group'><button class='btn btn-md btn-success'><i class='fas fa-id-card'></i></button></div>",
+                    'tanggal' => $row->tanggal,
+                    'no_antrian' => $row->no_antrian,
+                    'id_pasien' => $row->id_pasien,
+                    'nama' => $row->nama,
+                    'catatan_kunjungan' => $row->catatan_kunjungan,
+                    'status' => $status,
+                    'created_at' => $row->created_at,
+                ];
+                $response[] = $data;
+                $no++;
+            }
+            return json_encode($response);
+        } else {
+            $data = [
+                'no' => '',
+                'action' => '',
+                'no_antrian' => '',
+                'id_pasien' => '',
+                'nama' => '',
+                'catatan_kunjungan' => '',
+                'status' => '',
+                'tanggal' => '',
+                'created_at' => '',
+            ];
+            $no++;
+            return json_encode($data);
+        }
+    }
 }

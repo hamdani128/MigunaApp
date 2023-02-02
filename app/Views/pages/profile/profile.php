@@ -25,19 +25,23 @@
             <div class="card-body border-bottom">
                 <div class="fro_profile">
                     <div class="row">
-                        <div class="col-lg-4 mb-3 mb-lg-0">
-                            <div class="fro_profile-main">
-                                <div class="fro_profile-main-pic">
-                                    <img src="#" alt="" id="img-profile" class="rounded-circle">
-                                    <span class="fro-profile_main-pic-change" onclick="Change_photo()">
-                                        <i class="fas fa-camera"></i>
-                                    </span>
-                                </div>
-                                <div class="fro_profile_user-detail">
+                        <div class="col-lg-4 text-center mb-3 mb-lg-0">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="#" alt="" id="img-profile" style="width: 100%;height: 80%;">
                                     <h5 class="fro_user-name" id="nama-klinik">-</h5>
-                                    <!-- <p class="mb-0 fro_user-name-post">UI/UX Designer</p> -->
+
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <button class="btn btn-md btn-info btn-block" type="button"
+                                        onclick="Change_photo()">
+                                        <span class="fro-profile_main-pic-change">
+                                            <i class="fas fa-camera"></i>
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
+
                         </div>
                         <!--end col-->
 

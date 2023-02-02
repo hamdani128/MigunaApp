@@ -29,8 +29,8 @@
                 <div class="card-body">
                     <div class="row text-right">
                         <div class="col-lg-12 text-white text-center">
-                            <img src="<?= base_url() ?>/upload/<?= $profile->file; ?>"
-                                style="width: 150px;height: 150px;" alt="">
+                            <img src="<?= base_url() ?>/upload/<?= $profile->file; ?>" style="width: 40%;height: 60%;"
+                                alt="">
                             <h4 class="text-dark"><?= $profile->nama; ?></h4>
                             <h4 class="text-dark">Alamat : <?= $profile->alamat; ?></h4>
                             <h5 class="text-dark">No.Telepon : <?= $profile->no_hp; ?> </h5>

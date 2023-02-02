@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class TreatmentController extends BaseController
 {
@@ -178,6 +180,56 @@ class TreatmentController extends BaseController
             $response = [
                 'status' => 'error',
                 'message' => 'Error Deleted !',
+            ];
+        }
+        return json_encode($response);
+    }
+
+    public function download_format()
+    {
+        return $this->response->download('source/treatment.xlsx', null);
+    }
+
+    public function import_data()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $now = date('Y-m-d H:i:s');
+        $user_id = $this->UserInfo->id;
+        $unit_id = $this->UserInfo->unit_id;
+        $berkas = $this->request->getFile("file_treatment");
+        $ext = $berkas->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new Xls();
+        } else {
+            $render = new Xlsx();
+        }
+        $preadsheet = $render->load($berkas);
+        $data = $preadsheet->getActiveSheet()->toArray();
+        foreach ($data as $x => $row) {
+            if ($x == 0) {
+                continue;
+            }
+            $data = [
+                'id_treatment' => $row[0],
+                'nama' => $row[1],
+                'harga' => $row[2],
+                'kategori' => $row[3],
+                'unit_id' => $unit_id,
+                'user_id' => $user_id,
+                'created_at' => $now,
+                'updated_at' => $now
+            ];
+            $query1 = $this->db->table("treatment")->insert($data);
+        }
+        if ($query1) {
+            $response = [
+                'status' => 'success',
+                'message' => 'success'
+            ];
+        } else {
+            $response = [
+                'status' => 'failed',
+                'message' => 'failed'
             ];
         }
         return json_encode($response);

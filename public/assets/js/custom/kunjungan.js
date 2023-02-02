@@ -178,4 +178,39 @@ function check_riwayat_tanggal() {
     }
 }
 
+function Filter_riwayat_kunjungan() {
+    var mulai = $('#mulai').val();
+    var sampai = $('#sampai').val();
+    if (mulai == '' || sampai == '') {
+        Swal.fire({
+            title: "Error !",
+            text: " Harap Memilih Tanggal Yang Tersedia !",
+            type: "error",
+        });
+    } else {
+        var table = $('#table-antrian').DataTable();
+        table.clear().draw();
+        table = $('#table-antrian').DataTable({
+            ajax: {
+                url: "/kunjungan/filter_getdata/" + mulai + "/" + sampai,
+                dataSrc: "",
+            },
+            columns: [
+                { "data": "no" },
+                { "data": "keterangan" },
+                { "data": "tanggal" },
+                { "data": "hari" },
+                { "data": "nik" },
+                { "data": "nama" },
+                { "data": "instansi" },
+                { "data": "jam_masuk" },
+                { "data": "jam_pulang" },
+                { "data": "jlh_telat" },
+                { "data": "lokasi_masuk" },
+                { "data": "lokasi_pulang" }
+            ],
+        });
+    }
+}
+
 

@@ -46,7 +46,10 @@
                                 <div class="input-group">
                                     <input type="date" name="sampai" id="sampai" class="form-control"
                                         placeholder="Silahkan input tanggal">
-                                    <button class="btn btn-md btn-primary"><i class="fa fa-filter"></i> Pilih</button>
+                                    <button class="btn btn-md btn-primary" onclick="Filter_riwayat_kunjungan()">
+                                        <i class="fa fa-filter"></i>
+                                        Pilih
+                                    </button>
                                 </div>
                             </div>
                         </div>
