@@ -127,6 +127,8 @@
     <script src="https://apexcharts.com/samples/assets/series1000.js"></script>
     <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
     <script src="<?= base_url() ?>/assets/pages/jquery.dashboard.init.js"></script>
+    <script src="<?= base_url() ?>/assets/pages/jquery.dashboard-3.init.js"></script>
+
     <!-- upload -->
     <script src="<?= base_url() ?>/assets/plugins/dropify/js/dropify.min.js"></script>
     <script src="<?= base_url() ?>/assets/pages/jquery.form-upload.init.js"></script>
