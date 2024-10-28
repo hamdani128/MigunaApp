@@ -52,3 +52,8 @@ function login_administrator() {
         );
     }
 }
+
+
+function lupa_password_show() {
+    $("#my-modal").modal('show');
+}

@@ -50,6 +50,17 @@
                 <li><a href="/transaksi/product">Product</a></li>
             </ul>
         </li>
+        <li>
+            <a href="javascript: void(0);">
+                <i class="mdi mdi-settings"></i>
+                <span>Settings</span>
+                <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i>
+                </span>
+            </a>
+            <ul class="nav-second-level" aria-expanded="false">
+                <li><a href="/settings_admin">Settings</a></li>
+            </ul>
+        </li>
         <?php } ?>
 
         <?php if ($userinfo->level == 'Admin') { ?>

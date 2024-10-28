@@ -4,10 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
-use CodeIgniter\Entity\Cast\JsonCast;
 use Mike42\Escpos\EscposImage;
-use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
 
 class TransaksiTreatment extends BaseController
 {
@@ -22,12 +21,12 @@ class TransaksiTreatment extends BaseController
     public function getIDTransaksi($id_unit)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $SQL = "SELECT MAX(RIGHT(transaksi_id, 4)) as kode FROM transaksi_treatment WHERE unit_id ='" . $id_unit . "' AND tanggal='"  . date('Y-m-d') . "'";
+        $SQL = "SELECT MAX(RIGHT(transaksi_id, 4)) as kode FROM transaksi_treatment WHERE unit_id ='" . $id_unit . "' AND tanggal='" . date('Y-m-d') . "'";
         $row = $this->db->query($SQL)->getRowObject();
         if ($row->kode !== "") {
             $kodeBarang = $row->kode;
             // mengambil angka dari kode barang terbesar, menggunakan fungsi substr dan diubah ke integer dengan (int)
-            $urutan = (int)$kodeBarang;
+            $urutan = (int) $kodeBarang;
             $urutan++;
             // nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya
             $no = sprintf("%04s", $urutan);
@@ -53,7 +52,7 @@ class TransaksiTreatment extends BaseController
                     b.nik
                     FROM transaksi_treatment a
                     LEFT JOIN pasien b ON a.pasien_id=b.id_pasien
-                    WHERE a.tanggal='" . date('Y-m-d') . "' AND a.unit_id='" . $this->UserInfo->unit_id . "'";
+                    WHERE a.tanggal='" . date('Y-m-d') . "' AND a.unit_id='" . $this->UserInfo->unit_id . "' GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21";
             $transaksi_treatment = $this->db->query($sql1)->getResultObject();
             $data = [
                 'title' => 'App Miguna - Transaksi Treatment',
@@ -130,7 +129,7 @@ class TransaksiTreatment extends BaseController
                 b.nama as nama,
                 a.catatan_anamnesa as catatan_anamnesa,
                 a.catatan_obat as catatan_obat
-                FROM diagnosa a 
+                FROM diagnosa a
                 LEFT JOIN pasien b ON a.id_pasien = b.id_pasien
                 WHERE a.no_kunjungan = '" . $no_antrian . "'
                 ";
@@ -390,12 +389,12 @@ class TransaksiTreatment extends BaseController
     {
         date_default_timezone_set('Asia/Jakarta');
         if ($this->UserInfo->level == 'Admin Cabang') {
-            $SQL = "SELECT 
+            $SQL = "SELECT
                     COUNT(*) as jumlah
-                    FROM 
-                    transaksi_treatment 
+                    FROM
+                    transaksi_treatment
                     WHERE unit_id ='" . $this->UserInfo->unit_id . "'
-                    AND tanggal='"  . date('Y-m-d') . "'";
+                    AND tanggal='" . date('Y-m-d') . "'";
             $jumlah = $this->db->query($SQL)->getRowObject()->jumlah;
             $data['jumlah'] = $jumlah;
             return json_encode($data);
@@ -406,13 +405,13 @@ class TransaksiTreatment extends BaseController
     {
         date_default_timezone_set('Asia/Jakarta');
         if ($this->UserInfo->level == 'Admin Cabang') {
-            $SQL = "SELECT 
+            $SQL = "SELECT
                     SUM(potongan) as jlh_potongan,
                     SUM(subtotal) as jlh_subtotal
-                    FROM 
-                    transaksi_treatment 
+                    FROM
+                    transaksi_treatment
                     WHERE unit_id ='" . $this->UserInfo->unit_id . "'
-                    AND tanggal='"  . date('Y-m-d') . "'";
+                    AND tanggal='" . date('Y-m-d') . "'";
             $jlh_potongan = $this->db->query($SQL)->getRowObject()->jlh_potongan;
             $jlh_subtotal = $this->db->query($SQL)->getRowObject()->jlh_subtotal;
             $data['jumlah_potongan'] = $jlh_potongan;
@@ -439,7 +438,7 @@ class TransaksiTreatment extends BaseController
             $lebar_kolom_3 = 8;
             $lebar_kolom_4 = 10;
 
-            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n
             $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
             $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
             $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
@@ -457,10 +456,10 @@ class TransaksiTreatment extends BaseController
             // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
             // $hasilBaris = ;
 
-            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris
             for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
 
-                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan,
                 $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
                 $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
 
@@ -480,7 +479,7 @@ class TransaksiTreatment extends BaseController
             Printer::IMG_DEFAULT,
             Printer::IMG_DOUBLE_WIDTH,
             Printer::IMG_DOUBLE_HEIGHT,
-            Printer::IMG_DOUBLE_WIDTH | Printer::IMG_DOUBLE_HEIGHT
+            Printer::IMG_DOUBLE_WIDTH | Printer::IMG_DOUBLE_HEIGHT,
         ];
         // Membuat judul
         $printer->initialize();

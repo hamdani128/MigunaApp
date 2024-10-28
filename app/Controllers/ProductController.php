@@ -24,7 +24,7 @@ class ProductController extends BaseController
         $query = $this->db->query($sql);
         if ($query->getNumRows() > 0) {
             $row = $query->getRow();
-            $n = ((int)$row->KD_MAX) + 1;
+            $n = ((int) $row->KD_MAX) + 1;
             $no = sprintf("%04s", $n);
         } else {
             $no = "#PR" . $unit_id . "-" . "0001";
@@ -219,7 +219,6 @@ class ProductController extends BaseController
         return json_encode($response);
     }
 
-
     public function supplier_add()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -393,19 +392,19 @@ class ProductController extends BaseController
                 'unit_id' => $unit_id,
                 'user_id' => $user_id,
                 'created_at' => $now,
-                'updated_at' => $now
+                'updated_at' => $now,
             ];
             $query1 = $this->db->table("product")->insert($data);
         }
         if ($query1) {
             $response = [
                 'status' => 'success',
-                'message' => 'success'
+                'message' => 'success',
             ];
         } else {
             $response = [
                 'status' => 'failed',
-                'message' => 'failed'
+                'message' => 'failed',
             ];
         }
         return json_encode($response);
@@ -443,19 +442,19 @@ class ProductController extends BaseController
                 'unit_id' => $unit_id,
                 'user_id' => $user_id,
                 'created_at' => $now,
-                'updated_at' => $now
+                'updated_at' => $now,
             ];
             $query1 = $this->db->table("supplier")->insert($data);
         }
         if ($query1) {
             $response = [
                 'status' => 'success',
-                'message' => 'success'
+                'message' => 'success',
             ];
         } else {
             $response = [
                 'status' => 'failed',
-                'message' => 'failed'
+                'message' => 'failed',
             ];
         }
         return json_encode($response);

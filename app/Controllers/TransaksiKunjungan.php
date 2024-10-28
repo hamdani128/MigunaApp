@@ -53,7 +53,7 @@ class TransaksiKunjungan extends BaseController
                         a.created_at as created_at
                         FROM antrian_kunjungan a 
                         LEFT JOIN pasien b ON a.id_pasien = b.id_pasien 
-                        WHERE a.unit_id=" . $unit_id . " AND a.tanggal='" . $now . "'";
+                        WHERE a.unit_id=" . $unit_id . " AND a.tanggal='" . $now . "' GROUP BY 1,2,3,4,5,6,7,8";
             $query = $this->db->query($SQL)->getResultObject();
             $no = 1;
             if (count($query) > 0) {
@@ -64,7 +64,7 @@ class TransaksiKunjungan extends BaseController
                         $status = "<h5 class='badge badge-boxed  badge-soft-primary'>" . $row->status . "</h5>";
                     }
                     $data = [
-                        'no' => $no,
+                        'no' => $no++,
                         'action' => "<div class='button-group'><button class='btn btn-md btn-danger' onclick='delete_transaksi_kunjungan()'><i class='fa fa-trash'></i></button><button class='btn btn-md btn-dark' onclick='diagnosa_pasien_dokter()'><i class='fas fa-user-edit'></i></button><button class='btn btn-md btn-success' onclick='riwayat_transaksi_kunjungan()'><i class='fas fa-id-card'></i></button></div>",
                         'no_antrian' => $row->no_antrian,
                         'id_pasien' => $row->id_pasien,
@@ -75,9 +75,9 @@ class TransaksiKunjungan extends BaseController
                         'created_at' => $row->created_at,
                         'status_asli' => $row->status,
                     ];
-                    $no++;
                     $response[] = $data;
                 }
+                return json_encode($response);
             } else {
                 $data = [
                     'no' => '',
@@ -92,11 +92,11 @@ class TransaksiKunjungan extends BaseController
                     'status_asli' => '',
                 ];
                 $no++;
-                $response[] = $data;
+                $response = $data;
+                return json_encode($response);
             }
         } else {
         }
-        return json_encode($response);
     }
 
     public function add_diagnosa()
@@ -167,9 +167,11 @@ class TransaksiKunjungan extends BaseController
         return json_encode($response);
     }
 
-    public function riwayat_tanggal($id_pasien)
+    public function riwayat_tanggal()
     {
-        $query1 = $this->db->table("transaksi_treatment")->select("tanggal")->where("pasien_id", $id_pasien)->get()->getResultObject();
+        $id_pasien = $this->request->getPost('id_pasien');
+        // echo $id_pasien;
+        $query1 = $this->db->table("transaksi_treatment")->where("pasien_id", $id_pasien)->get()->getResultObject();
         $no = 1;
         if (count($query1) > 0) {
             foreach ($query1 as $row) {
@@ -202,29 +204,39 @@ class TransaksiKunjungan extends BaseController
         $treatment = $this->db->table("transaksi_treatment_detail")->where("DATE(created_at)", $tanggal)->where("pasien_id", $id_pasien)->get()->getResultObject();
         $product = $this->db->table("transaksi_treatment_detail_prod")->where("DATE(created_at)", $tanggal)->where("pasien_id", $id_pasien)->get()->getResultObject();
 
-        foreach ($treatment as $row) {
-            $datatreat = [
-                'kode' => $row->kode,
-                'treatment' => $row->treatment,
-                'harga' => str_replace(",", ".", number_format($row->harga, 0)),
-                'qty' => str_replace(",", ".", number_format($row->qty, 0)),
-                'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
-                'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
-            ];
-            $treat[] = $datatreat;
+        if (count($treatment) > 0) {
+            foreach ($treatment as $row) {
+                $datatreat = [
+                    'kode' => $row->kode,
+                    'treatment' => $row->treatment,
+                    'harga' => str_replace(",", ".", number_format($row->harga, 0)),
+                    'qty' => str_replace(",", ".", number_format($row->qty, 0)),
+                    'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
+                    'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
+                ];
+                $treat[] = $datatreat;
+            }
+        } else {
+            $treat = "empty";
         }
-        foreach ($product as $row) {
-            $dataprod = [
-                'kode' => $row->kode,
-                'nama' => $row->nama,
-                'satuan' => $row->satuan,
-                'harga' => str_replace(",", ".", number_format($row->harga, 0)),
-                'qty' => str_replace(",", ".", number_format($row->qty, 0)),
-                'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
-                'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
-            ];
-            $prod[] = $dataprod;
+
+        if (count($product) > 0) {
+            foreach ($product as $row) {
+                $dataprod = [
+                    'kode' => $row->kode,
+                    'nama' => $row->nama,
+                    'satuan' => $row->satuan,
+                    'harga' => str_replace(",", ".", number_format($row->harga, 0)),
+                    'qty' => str_replace(",", ".", number_format($row->qty, 0)),
+                    'subtotal' => str_replace(",", ".", number_format($row->subtotal, 0)),
+                    'potongan' => str_replace(",", ".", number_format($row->potongan, 0)),
+                ];
+                $prod[] = $dataprod;
+            }
+        } else {
+            $prod = "empty";
         }
+
         $data = [
             'catatan_anamnesa' => $diagnosa->catatan_anamnesa,
             'catatan_obat' => $diagnosa->catatan_obat,

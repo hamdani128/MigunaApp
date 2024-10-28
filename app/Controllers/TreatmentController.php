@@ -24,7 +24,7 @@ class TreatmentController extends BaseController
         $query = $this->db->query($sql);
         if (!empty($query)) {
             $row = $query->getRow();
-            $n = ((int)$row->KD_MAX) + 1;
+            $n = ((int) $row->KD_MAX) + 1;
             $no = sprintf("%04s", $n);
             $kode = "#TD" . $unit_id . "-" . $no;
         } else {
@@ -67,7 +67,7 @@ class TreatmentController extends BaseController
             'unit_id' => $unit_id,
             'user_id' => $user_id,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
 
         $query = $this->db->table('treatment')->insert($data);
@@ -98,7 +98,7 @@ class TreatmentController extends BaseController
                 'nama' => "",
                 'harga' => "",
                 'kategori' => "",
-                'created_at' => ""
+                'created_at' => "",
             ];
             $response[] = $data;
         } else {
@@ -110,7 +110,7 @@ class TreatmentController extends BaseController
                     'nama' => $row->nama,
                     'harga' => $row->harga,
                     'kategori' => $row->kategori,
-                    'created_at' => $row->created_at
+                    'created_at' => $row->created_at,
                 ];
                 $response[] = $data;
                 $no++;
@@ -148,7 +148,7 @@ class TreatmentController extends BaseController
             'kategori' => $kategori,
             'unit_id' => $unit_id,
             'user_id' => $user_id,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
 
         $query = $this->db->table('treatment')->where('id_treatment', $id_treat)->update($data);
@@ -165,7 +165,6 @@ class TreatmentController extends BaseController
         }
         return json_encode($response);
     }
-
 
     public function admin_delete()
     {
@@ -217,19 +216,19 @@ class TreatmentController extends BaseController
                 'unit_id' => $unit_id,
                 'user_id' => $user_id,
                 'created_at' => $now,
-                'updated_at' => $now
+                'updated_at' => $now,
             ];
             $query1 = $this->db->table("treatment")->insert($data);
         }
         if ($query1) {
             $response = [
                 'status' => 'success',
-                'message' => 'success'
+                'message' => 'success',
             ];
         } else {
             $response = [
                 'status' => 'failed',
-                'message' => 'failed'
+                'message' => 'failed',
             ];
         }
         return json_encode($response);

@@ -278,6 +278,7 @@ function riwayat_transaksi_kunjungan_pasien() {
                 var cell1 = row.getElementsByTagName("td")[2];
                 var cell2 = row.getElementsByTagName("td")[4];
                 var id_pasien = cell1.innerHTML;
+                // alert(id_pasien)
                 var nama = cell2.innerHTML;
                 document.getElementById("my-titla-riwayat").innerHTML = "No.ID Pasein : " + id_pasien + " | " + nama;
                 document.getElementById("img1").src = "/assets/images/small/img-1.jpg";
@@ -292,26 +293,35 @@ function riwayat_transaksi_kunjungan_pasien() {
                 var tbody2 = document.getElementById('tbody-list-prod-riw');
                 var tr2 = '';
                 tbody2.innerHTML = tr2;
-                $("#my-modal-riwayat").modal("show");
-
-                $('#table-transaksi-riwayat').DataTable().destroy();
-                $('#table-transaksi-riwayat').DataTable({
-                    "ajax": {
-                        "url": "/transaksi/kunjungan/riwayat_tanggal/" + id_pasien,
-                        "dataSrc": "",
+                $.ajax({
+                    url: "/transaksi/kunjungan/riwayat_tanggal",
+                    data: {
+                        id_pasien: id_pasien,
                     },
-                    "columns": [
-                        { "data": "no" },
-                        { "data": "action" },
-                        { "data": "tanggal" },
-                        { "data": "id_pasien" },
-                    ],
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        riwayat_pasien_json(data)
+                        $("#my-modal-riwayat").modal("show");
+                    }
                 });
-
             };
         };
         currentRow.onclick = createClickHandler(currentRow);
     }
+}
+
+function riwayat_pasien_json(data) {
+    $('#table-transaksi-riwayat').DataTable().destroy();
+    $('#table-transaksi-riwayat').DataTable({
+        "data": data,
+        "columns": [
+            { "data": "no" },
+            { "data": "action" },
+            { "data": "tanggal" },
+            { "data": "id_pasien" },
+        ],
+    });
 }
 
 

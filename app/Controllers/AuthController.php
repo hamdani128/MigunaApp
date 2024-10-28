@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
-use CodeIgniter\Database\Database;
 
 class AuthController extends BaseController
 {
@@ -19,7 +18,7 @@ class AuthController extends BaseController
         return view('/auth/login');
     }
 
-    function login_check()
+    public function login_check()
     {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');

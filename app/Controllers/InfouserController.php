@@ -74,7 +74,7 @@ class InfouserController extends BaseController
         if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
-                'message' => 'data successfully'
+                'message' => 'data successfully',
             ];
         } else {
             $response = [
@@ -109,7 +109,7 @@ class InfouserController extends BaseController
             'username' => $query->username,
             'email' => $query->email,
             'password' => $query->password,
-            'unit_id' => $query->unit_id
+            'unit_id' => $query->unit_id,
         ];
         return json_encode($data);
     }
@@ -148,7 +148,7 @@ class InfouserController extends BaseController
         if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
-                'message' => 'data successfully'
+                'message' => 'data successfully',
             ];
         } else {
             $response = [
@@ -168,7 +168,7 @@ class InfouserController extends BaseController
         if ($query1 && $query2) {
             $response = [
                 'status' => 'success',
-                'message' => 'data successfully'
+                'message' => 'data successfully',
             ];
         } else {
             $response = [
@@ -190,7 +190,7 @@ class InfouserController extends BaseController
                 b.password as hash,
                 a.created_at as created_at
                 FROM users_password a
-                LEFT JOIN users b ON a.username = b.username 
+                LEFT JOIN users b ON a.username = b.username
                 WHERE a.username = '" . $datauser->username . "'
                 GROUP BY 1,2,3,4,5";
         $uqery = $this->db->query($sql)->getResultObject();

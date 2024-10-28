@@ -32,7 +32,7 @@
                         <div class="col-md-12">
                             <a href="#" class="logo"><img src="<?= base_url() ?>/assets/images/Logo-Primary.png"
                                     height="55" alt="logo" class="my-0"></a>
-                            <p class="text-muted mb-0">Sign in to continue to Miguna Clinic.</p>
+                            <p class="text-muted mb-0">Sign in to continue to Gluehealth Care.</p>
                         </div>
                     </div>
                     <div class="row">
@@ -111,8 +111,10 @@
                                     </div>
                                 </div> -->
                                         <div class="col-sm-12 text-right">
-                                            <a href="pages-recoverpw-2.html" class="text-muted font-13"><i
-                                                    class="mdi mdi-lock"></i> Lupa Password ?</a>
+                                            <a href="#" class="text-muted font-13" onclick="lupa_password_show()">
+                                                <i class="mdi mdi-lock"></i>
+                                                Lupa Password ?
+                                            </a>
                                         </div>
                                     </div>
 
@@ -135,11 +137,11 @@
         <div class="col-lg-9 p-0 d-flex justify-content-center">
             <div class="accountbg d-flex align-items-center">
                 <div class="account-title text-white text-center">
-                    <img src="<?= base_url() ?>/assets/images/icon.png" alt="" class="thumb-sm">
-                    <h4 class="mt-3">Selamat Datang Miguna Clinic App</h4>
-                    <div class="border w-25 mx-auto border-primary"></div>
+                    <img src="<?= base_url() ?>/assets/images/Logo-Secondary.png" alt=""
+                        style="width: 50%;height: 50%;">
+
                     <h3 class="">Mari Bergabung Dan Rasakan Pelayanan Kami </h3>
-                    <p class="font-14 mt-3">Tidak Punya Akun ? <a href="" class="text-primary">Sign up</a></p>
+                    <!-- <p class="font-14 mt-3">Tidak Punya Akun ? <a href="" class="text-primary">Sign up</a></p> -->
 
                 </div>
             </div>
@@ -147,7 +149,29 @@
     </div>
     <!-- End Log In page -->
 
-
+    <!-- Show Modal Forgot password -->
+    <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="my-modal-title">Lupa Password</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>In develop</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" onclick="simpan_data_pasien_by_admin()">
+                        <i class="fa fa-save"></i>
+                        Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery  -->
     <script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>

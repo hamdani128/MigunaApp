@@ -105,7 +105,7 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('/transaksi/kunjungan', 'TransaksiKunjungan::index');
     $routes->get('/transaksi/kunjungan/getdata', 'TransaksiKunjungan::getdata');
     $routes->post('/transaksi/kunjungan/add_diagnosa', 'TransaksiKunjungan::add_diagnosa');
-    $routes->get('/transaksi/kunjungan/riwayat_tanggal/(:any)', 'TransaksiKunjungan::riwayat_tanggal/$1');
+    $routes->post('/transaksi/kunjungan/riwayat_tanggal', 'TransaksiKunjungan::riwayat_tanggal');
     $routes->post('/transaksi/kunjungan/list_detail_riwayat', 'TransaksiKunjungan::list_detail_riwayat');
 
     // Transaksi Treatment
@@ -141,6 +141,9 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('/infousers/update', 'InfouserController::update');
     $routes->post('/infousers/delete', 'InfouserController::delete');
     $routes->post('/infousers/show_password', 'InfouserController::show_password');
+
+    // $routes->get
+    $routes->get('/settings_admin', 'SettingAdmin::index');
 
     // Profile
     $routes->get('/profile', 'Profile::index');

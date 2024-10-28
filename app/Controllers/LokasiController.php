@@ -8,11 +8,11 @@ use CodeIgniter\Database\Config;
 class LokasiController extends BaseController
 {
 
-    private $db,$userinfo;
+    private $db, $userinfo;
     public function __construct()
     {
         $this->db = Config::connect();
-        $this->UserInfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
+        $this->userinfo = $this->db->table('users')->where('id', session()->get('loggedUser'))->get()->getRowObject();
     }
 
     public function index()
@@ -20,7 +20,7 @@ class LokasiController extends BaseController
         $data_lokasi = $this->db->table('unit')->get()->getResultObject();
         $data = [
             'title' => 'App Miguna - Lokasi Cabang',
-            'userinfo' => $this->UserInfo,
+            'userinfo' => $this->userinfo,
             'lokasi' => $data_lokasi,
         ];
         return view('pages/cabang/cabang', $data);
@@ -43,18 +43,18 @@ class LokasiController extends BaseController
             'kabupaten' => $kabupaten,
             'provinsi' => $provinsi,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
         $query = $this->db->table('unit')->insert($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
-                'message' =>'Data Berhasil Disimpan !',
+                'message' => 'Data Berhasil Disimpan !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
-                'message' =>'Data Gagal Disimpan !',
+                'message' => 'Data Gagal Disimpan !',
             ];
         }
         return json_encode($response);
@@ -84,26 +84,26 @@ class LokasiController extends BaseController
         $provinsi = $this->request->getPost('provinsi');
         date_default_timezone_set('Asia/jakarta'); # add your city to set local time zone
         $now = date('Y-m-d H:i:s');
-        
+
         $data = [
             'unit' => $unit,
             'alamat' => $alamat,
             'kecamatan' => $kecamatan,
             'kabupaten' => $kabupaten,
             'provinsi' => $provinsi,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
-        
+
         $query = $this->db->table('unit')->where('id', $id)->update($data);
-        if($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
-                'message' =>'Data Berhasil Dirubah !',
+                'message' => 'Data Berhasil Dirubah !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
-                'message' =>'Data Gagal Dirubah !',
+                'message' => 'Data Gagal Dirubah !',
             ];
         }
         return json_encode($response);
@@ -114,12 +114,12 @@ class LokasiController extends BaseController
     {
         $id = $this->request->getPost('id');
         $query = $this->db->table('unit')->where('id', $id)->delete();
-        if ($query){
+        if ($query) {
             $response = [
                 'status' => 'success',
                 'message' => 'Data Berhasil Dihapus !',
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Gagal Berhasil Dihapus !',
@@ -131,11 +131,11 @@ class LokasiController extends BaseController
     public function getdata()
     {
         $query = $this->db->table('unit')->get()->getResultObject();
-        foreach ($query as $row){
+        foreach ($query as $row) {
             $data['aksi'] = "<button><i class='btn btn-md btn-primary'></i></button>";
             $data['unit'] = $row->unit;
             $data['alamat'] = $row->alamat;
-            $data['kecamatan'] = $row->kecamatan;;
+            $data['kecamatan'] = $row->kecamatan;
             $data['kabupaten'] = $row->kabupaten;
             $data['provinsi'] = $row->provinsi;
             $data['created_at'] = $row->created_at;

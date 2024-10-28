@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Config;
-use CodeIgniter\Entity\Cast\JsonCast;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -27,7 +26,7 @@ class PasienController extends BaseController
         $query = $this->db->query($sql);
         if ($query->getNumRows() > 0) {
             $row = $query->getRow();
-            $n = ((int)$row->KD_MAX) + 1;
+            $n = ((int) $row->KD_MAX) + 1;
             $no = sprintf("%04s", $n);
         } else {
             $no = "0001";
@@ -44,7 +43,7 @@ class PasienController extends BaseController
         $query = $this->db->query($sql);
         if ($query->getNumRows() > 0) {
             $row = $query->getRow();
-            $n = ((int)$row->KD_MAX) + 1;
+            $n = ((int) $row->KD_MAX) + 1;
             $no = sprintf("%04s", $n);
         } else {
             $no = "0001";
@@ -52,7 +51,6 @@ class PasienController extends BaseController
         $kode = 'ANT' . $unit_id . "-" . date('Ymd') . $no;
         return $kode;
     }
-
 
     public function index()
     {
@@ -69,8 +67,6 @@ class PasienController extends BaseController
         }
     }
 
-
-
     public function admin_insert()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -83,7 +79,7 @@ class PasienController extends BaseController
         $pekerjaan = $this->request->getPost('pekerjaan');
         $hp = $this->request->getPost('hp');
         $registri = $this->request->getPost('registri');
-        // 
+        //
         $userid = $this->UserInfo->id;
         $unit_id = $this->UserInfo->unit_id;
         $id_pasien = $this->GetIDPasienCabang($unit_id, $registri);
@@ -101,7 +97,7 @@ class PasienController extends BaseController
             'unit_id' => $unit_id,
             'user_id' => $userid,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
 
         $query = $this->db->table('pasien')->insert($data);
@@ -118,7 +114,6 @@ class PasienController extends BaseController
         }
         return json_encode($response);
     }
-
 
     public function admin_getdata()
     {
@@ -206,7 +201,7 @@ class PasienController extends BaseController
             'registri' => $registri,
             'hp' => $hp,
             'user_id' => $userid,
-            'updated_at' => $now
+            'updated_at' => $now,
         ];
 
         $query = $this->db->table('pasien')->where('id_pasien', $id_pasien)->update($data);
@@ -231,7 +226,7 @@ class PasienController extends BaseController
         if ($query) {
             $response = [
                 'status' => 'success',
-                'message' => 'Successfully !'
+                'message' => 'Successfully !',
             ];
         } else {
             $response = [
@@ -277,13 +272,13 @@ class PasienController extends BaseController
                     'message' => 'successfully !',
                 ];
             } else {
-                $response  = [
+                $response = [
                     'status' => 'error',
                     'message' => 'Error ! ',
                 ];
             }
         } else {
-            $response  = [
+            $response = [
                 'status' => 'anyway',
                 'message' => 'Data Sudah Dimasukkan Ke Antrian ! ',
             ];
@@ -327,19 +322,19 @@ class PasienController extends BaseController
                 'unit_id' => $unit_id,
                 'user_id' => $user_id,
                 'created_at' => $this->timenow,
-                'updated_at' => $this->timenow
+                'updated_at' => $this->timenow,
             ];
             $query1 = $this->db->table("pasien")->insert($data);
         }
         if ($query1) {
             $response = [
                 'status' => 'success',
-                'message' => 'success'
+                'message' => 'success',
             ];
         } else {
             $response = [
                 'status' => 'failed',
-                'message' => 'failed'
+                'message' => 'failed',
             ];
         }
         return json_encode($response);

@@ -20,12 +20,12 @@ class TransaksiProduct extends BaseController
     public function TransaksiID($unit_id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $SQL = "SELECT MAX(RIGHT(no_transaksi, 4)) as kode FROM transaksi_produk WHERE unit_id ='" . $unit_id . "' AND date='"  . date('Y-m-d') . "'";
+        $SQL = "SELECT MAX(RIGHT(no_transaksi, 4)) as kode FROM transaksi_produk WHERE unit_id ='" . $unit_id . "' AND date='" . date('Y-m-d') . "'";
         $row = $this->db->query($SQL)->getRowObject();
         if ($row->kode !== "") {
             $kodeBarang = $row->kode;
             // mengambil angka dari kode barang terbesar, menggunakan fungsi substr dan diubah ke integer dengan (int)
-            $urutan = (int)$kodeBarang;
+            $urutan = (int) $kodeBarang;
             $urutan++;
             // nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya
             $no = sprintf("%04s", $urutan);
@@ -150,8 +150,6 @@ class TransaksiProduct extends BaseController
         }
         return json_encode($response);
     }
-
-
 
     public function pay_debit()
     {
@@ -289,7 +287,7 @@ class TransaksiProduct extends BaseController
             'date' => $data_transaksi->date,
             'kategori_konsumen' => $data_transaksi->kategori,
             'id_pasien' => $data_transaksi->pasien_id,
-            'nama'  => $data_transaksi->nama,
+            'nama' => $data_transaksi->nama,
             'nik' => $data_transaksi->nik,
             'hp' => $data_transaksi->hp,
             'alamat' => $data_transaksi->alamat,
@@ -340,7 +338,7 @@ class TransaksiProduct extends BaseController
             $lebar_kolom_3 = 8;
             $lebar_kolom_4 = 12;
 
-            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n
             $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
             $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
             $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
@@ -358,10 +356,10 @@ class TransaksiProduct extends BaseController
             // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
             // $hasilBaris = ;
 
-            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris
             for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
 
-                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan,
                 $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
                 $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
 
@@ -381,7 +379,7 @@ class TransaksiProduct extends BaseController
             Printer::IMG_DEFAULT,
             Printer::IMG_DOUBLE_WIDTH,
             Printer::IMG_DOUBLE_HEIGHT,
-            Printer::IMG_DOUBLE_WIDTH | Printer::IMG_DOUBLE_HEIGHT
+            Printer::IMG_DOUBLE_WIDTH | Printer::IMG_DOUBLE_HEIGHT,
         ];
         // Membuat judul
         $printer->initialize();

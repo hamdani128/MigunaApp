@@ -93,28 +93,37 @@ function riwayat_transaksi_kunjungan() {
                 var tbody2 = document.getElementById('tbody-list-prod-riw');
                 var tr2 = '';
                 tbody2.innerHTML = tr2;
-                $("#my-modal-riwayat").modal("show");
-
-                $('#table-transaksi-riwayat').DataTable().destroy();
-                $('#table-transaksi-riwayat').DataTable({
-                    "ajax": {
-                        "url": "/transaksi/kunjungan/riwayat_tanggal/" + id_pasien,
-                        "dataSrc": "",
+                // $("#my-modal-riwayat").modal("show");
+                $.ajax({
+                    url: "/transaksi/kunjungan/riwayat_tanggal",
+                    data: {
+                        id_pasien: id_pasien,
                     },
-                    "columns": [
-                        { "data": "no" },
-                        { "data": "action" },
-                        { "data": "tanggal" },
-                        { "data": "id_pasien" },
-                    ],
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        riwayat_kunjungan_dokter(data)
+                        $("#my-modal-riwayat").modal("show");
+                    }
                 });
-
             };
         };
         currentRow.onclick = createClickHandler(currentRow);
     }
 }
 
+function riwayat_kunjungan_dokter(data) {
+    $('#table-transaksi-riwayat').DataTable().destroy();
+    $('#table-transaksi-riwayat').DataTable({
+        "data": data,
+        "columns": [
+            { "data": "no" },
+            { "data": "action" },
+            { "data": "tanggal" },
+            { "data": "id_pasien" },
+        ],
+    });
+}
 
 function check_riwayat_tanggal() {
     var table = document.getElementById("table-transaksi-riwayat");
@@ -144,30 +153,39 @@ function check_riwayat_tanggal() {
                         $("#riwayat_catatan_resep").val(data.catatan_obat);
                         var tbody1 = document.getElementById('tbody-list-treat-riw');
                         var tr1 = '';
-                        for (var i in data.treatment_detail) {
-                            tr1 += `<tr>
-                            <td align="center">${data.treatment_detail[i].kode}</td>
-                            <td>${data.treatment_detail[i].treatment}</td>
-                            <td>${data.treatment_detail[i].harga}</td>
-                            <td>${data.treatment_detail[i].qty}</td>
-                            <td>${data.treatment_detail[i].subtotal}</td>
-                            <td>${data.treatment_detail[i].potongan}</td>
-                        </tr>`;
+                        if (data.treatment == "empty") {
+                            tr1 += `<tr><td colspan='6'>Data Not Found</td></td`;
+                        } else {
+                            for (var i in data.treatment_detail) {
+                                tr1 += `<tr>
+                                <td align="center">${data.treatment_detail[i].kode}</td>
+                                <td>${data.treatment_detail[i].treatment}</td>
+                                <td>${data.treatment_detail[i].harga}</td>
+                                <td>${data.treatment_detail[i].qty}</td>
+                                <td>${data.treatment_detail[i].subtotal}</td>
+                                <td>${data.treatment_detail[i].potongan}</td>
+                            </tr>`;
+                            }
                         }
                         tbody1.innerHTML = tr1;
 
                         var tbody2 = document.getElementById('tbody-list-prod-riw');
                         var tr2 = '';
-                        for (var i in data.product_detail) {
-                            tr2 += `<tr>
-                        <td align="center">${data.product_detail[i].kode}</td>
-                        <td>${data.product_detail[i].nama}</td>
-                        <td>${data.product_detail[i].satuan}</td>
-                        <td>${data.product_detail[i].harga}</td>
-                        <td>${data.product_detail[i].qty}</td>
-                        <td>${data.product_detail[i].subtotal}</td>
-                        <td>${data.product_detail[i].potongan}</td>
-                        </tr>`;
+
+                        if (data.product_detail == "empty") {
+                            tr2 += `<tr><td colspan='6'>Data Not Found</td></td`;
+                        } else {
+                            for (var i in data.product_detail) {
+                                tr2 += `<tr>
+                            <td align="center">${data.product_detail[i].kode}</td>
+                            <td>${data.product_detail[i].nama}</td>
+                            <td>${data.product_detail[i].satuan}</td>
+                            <td>${data.product_detail[i].harga}</td>
+                            <td>${data.product_detail[i].qty}</td>
+                            <td>${data.product_detail[i].subtotal}</td>
+                            <td>${data.product_detail[i].potongan}</td>
+                            </tr>`;
+                            }
                         }
                         tbody2.innerHTML = tr2;
                     }

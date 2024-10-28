@@ -127,7 +127,7 @@ function delete_transaksi_kunjungan() {
                     }).then((result) => {
                         if (result.value) {
                             $.ajax({
-                                url: "/pasien/admin/antrian_kunjungan",
+                                url: "/kunjungan/delete",
                                 data: {
                                     no_antrian: no_antrian,
                                 },
