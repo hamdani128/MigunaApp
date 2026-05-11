@@ -1,5 +1,5 @@
-<?= $this->Extend('layout/index'); ?>
-<?= $this->Section('title'); ?>
+<?=$this->Extend('layout/index');?>
+<?=$this->Section('title');?>
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -17,9 +17,9 @@
         </div>
     </div>
 </div>
-<?= $this->EndSection(); ?>
+<?=$this->EndSection();?>
 
-<?= $this->Section('content'); ?>
+<?=$this->Section('content');?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -82,7 +82,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -254,7 +253,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="" class="form-label">No.Kunjungan</label>
-                            <h5 id='no_kunjungan'><?= $no_antrian; ?></h5>
+                            <h5 id='no_kunjungan'><?=$no_antrian;?></h5>
                         </div>
                         <div class="form-group">
                             <label for="" class="form-label">ID Pasien</label>
@@ -414,7 +413,7 @@
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <img class="card-img-top img-fluid" id="img1"
-                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        src="<?=base_url()?>/assets/images/small/img-1.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <h4 class="card-title mt-0">Image Before</h4>
@@ -426,7 +425,7 @@
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <img class="card-img-top img-fluid" id="img2"
-                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        src="<?=base_url()?>/assets/images/small/img-1.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <h4 class="card-title mt-0">Image Diagnosa</h4>
@@ -440,7 +439,7 @@
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <img class="card-img-top img-fluid" id="img3"
-                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        src="<?=base_url()?>/assets/images/small/img-1.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <h4 class="card-title mt-0">Image Diagnosa</h4>
@@ -451,7 +450,7 @@
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <img class="card-img-top img-fluid" id="img4"
-                                                        src="<?= base_url() ?>/assets/images/small/img-1.jpg"
+                                                        src="<?=base_url()?>/assets/images/small/img-1.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <h4 class="card-title mt-0">Image After</h4>
@@ -519,4 +518,4 @@
     </div>
 </div>
 
-<?= $this->EndSection(); ?>
+<?=$this->EndSection();?>

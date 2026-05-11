@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
@@ -23,10 +22,10 @@ class AuthController extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $UserInfo = $this->db->table('users')->where('username', $username)->get()->getRowObject();
-        $hashmd5 = md5($password);
+        $hashmd5  = md5($password);
         if (empty($UserInfo->username)) {
             $response = [
-                'status' => 'username not found',
+                'status'  => 'username not found',
                 'message' => 'Username Anda Tidak Terdaftar !',
             ];
             return json_encode($response);
@@ -35,13 +34,13 @@ class AuthController extends BaseController
                 $user_id = $UserInfo->id;
                 session()->set('loggedUser', $user_id);
                 $response = [
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Anda Berhasil Login !',
                 ];
                 return json_encode($response);
             } else {
                 $response = [
-                    'status' => 'Password Error',
+                    'status'  => 'Password Error',
                     'message' => 'Password Anda Salah !',
                 ];
                 return json_encode($response);
